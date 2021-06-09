@@ -15,22 +15,22 @@ import java.util.Set;
 public class User implements UserDetails {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "user_id")
     private Long id;
 
     @Column(name = "name")
-    @NotEmpty(message = "Имя не может быть пустым")
-    @Size(min = 2, max = 15, message = "Имя не может быть менее 2 символов или более 15")
+//    @NotEmpty(message = "Имя не может быть пустым")
+//    @Size(min = 2, max = 15, message = "Имя не может быть менее 2 символов или более 15")
     private String name;
 
     @Column(name = "lastname")
-    @NotEmpty(message = "Фамилия не может быть пустой")
-    @Size(min = 2, max = 15, message = "Фамилия не может быть менее 2 символов или более 15")
+//    @NotEmpty(message = "Фамилия не может быть пустой")
+//    @Size(min = 2, max = 15, message = "Фамилия не может быть менее 2 символов или более 15")
     private String lastname;
 
     @Column(name = "email", unique = true)
-    @Email(message = "Не верный формат Email")
+//    @Email(message = "Не верный формат Email")
     private String email;
 
     @NotEmpty(message = "Пароль не может быть пустым")

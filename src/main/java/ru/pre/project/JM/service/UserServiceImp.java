@@ -34,19 +34,20 @@ public class UserServiceImp implements UserService {
 
     @Override
     public void add(User user) {
+        System.out.println("ADD START: " + user.toString());
         userRepository.save(user);
     }
 
     @Override
-    public void edit(User user, long id) {
+    public void edit(User user, long id) { //todo
         user.setRoles(getUser(id).getRoles());
         //System.out.println(roleRepository.findRoleByRole(user.getAddRole()).getRole());
-        if (roleRepository.findRoleByRole(user.getAddRole()) != null) {
-            user.getRoles().add(roleRepository.findRoleByRole(user.getAddRole()));
-        }
-        if (roleRepository.findRoleByRole(user.getDeleteRole()) != null) {
-            user.getRoles().remove(roleRepository.findRoleByRole(user.getDeleteRole()));
-        }
+//        if (roleRepository.findRoleByRole(user.getAddRole()) != null) {
+//            user.getRoles().add(roleRepository.findRoleByRole(user.getAddRole()));
+//        }
+//        if (roleRepository.findRoleByRole(user.getDeleteRole()) != null) {
+//            user.getRoles().remove(roleRepository.findRoleByRole(user.getDeleteRole()));
+//        }
         userRepository.save(user);
     }
 
@@ -62,8 +63,8 @@ public class UserServiceImp implements UserService {
     }
 
     @Override
-    public void addDefaultRoles() {
-        roleRepository.save(new Role("ROLE_ADMIN"));
-        roleRepository.save(new Role("ROLE_USER"));
+    public void addDefaultRoles() { //todo
+        roleRepository.save(new Role(1l,"ROLE_ADMIN"));
+        roleRepository.save(new Role(2l, "ROLE_USER"));
     }
 }
