@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css">
+</head>
+<body>
+<table border="0" style="table-layout: fixed; width: 30%;">
+    <tr>
+        <th width="5px"><a>№</a></th>
+        <th><a>Имя</a></th>
+        <th><a>Фамилия</a></th>
+        <th><a>Email</a></th>
+    </tr>
+    <tr>
+        <th><p th:text="${user.getId()}">№</p></th>
+        <th><span th:text="${user.getName()}">Имя</span></th>
+        <th><span th:text="${user.getLastname()}">Фамилия</span></th>
+        <th><span th:text="${user.getEmail()}">Email</span></th>
+    </tr>
+</table>
+<!--<form action="/logout" target="_blank">-->
+<!--    <button formtarget="_self" style="background-color: #8fc3f1"> Выйти из аккаунта</button>-->
+<!--</form>-->
+
+</body>
+</html>

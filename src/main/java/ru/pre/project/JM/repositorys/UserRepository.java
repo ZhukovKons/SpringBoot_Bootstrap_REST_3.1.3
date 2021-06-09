@@ -6,5 +6,5 @@ import ru.pre.project.JM.models.User;
 
 @Repository
 public interface UserRepository extends JpaRepository<User, Long> {
-    User findUserByName(String name);
+    User findUserByEmail(String name);
 }

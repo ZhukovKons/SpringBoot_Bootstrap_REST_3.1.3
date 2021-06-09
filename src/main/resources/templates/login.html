@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<div>
+    <form method="post" action="/login">
+        <input name="j_username"/>
+        <input name="j_password"/>
+        <input type="submit"/>
+    </form>
+
+    <br>
+    <form action="/new" target="_blank">
+        <button formtarget="_self"> Создать нового пользователя </button>
+    </form>
+</div>
+<br>
+<a href="/test"> Заполнить базу юзерами (Login: admin@admin Pass: admin)</a>
+</body>
+</html>
