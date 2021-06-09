@@ -22,18 +22,16 @@ public class TestController {
     @GetMapping
     public String addAdmin() {
         service.addDefaultRoles();
-//        service.add(new User("Admin",
-//                "Admin_Last",
-//                "admin@admin",
-//                "admin",
-//                Collections.singleton(new Role(1L, "ROLE_ADMIN"))));
-        Long l = 100l;
+        service.add(new User("Admin",
+                "Admin_Last",
+                "admin@admin",
+                "admin",
+                Collections.singleton(new Role(1L, "ROLE_ADMIN"))));
         for (int i = 1; i < 25; i++) {
-            ++l;
-            service.add(new User(15l,"Пользователь " + l,
-                    "Фамилия " + l,
-                    l + "@user",
-                    "p" + l, Collections.singleton(new Role(2L, "ROLE_USER"))));
+            service.add(new User("Пользователь " + i,
+                    "Фамилия " + i,
+                    i + "@user",
+                    "p" + i, Collections.singleton(new Role(2L, "ROLE_USER"))));
         }
         return "redirect:/";
     }
