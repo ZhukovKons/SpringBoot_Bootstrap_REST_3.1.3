@@ -29,7 +29,8 @@ public class TestController {
 //                Collections.singleton(new Role(1L, "ROLE_ADMIN"))));
         Long l = 100l;
         for (int i = 1; i < 25; i++) {
-            service.add(new User((long) i, "Пользователь " + l,
+            ++l;
+            service.add(new User(1l,"Пользователь " + l,
                     "Фамилия " + l,
                     l + "@user",
                     "p" + l, Collections.singleton(new Role(2L, "ROLE_USER"))));
