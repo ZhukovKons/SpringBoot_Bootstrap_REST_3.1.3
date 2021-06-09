@@ -64,9 +64,7 @@ public class UserServiceImp implements UserService {
 
     @Override
     public void addDefaultRoles() { //todo
-//        roleRepository.save(new Role(1l,"ROLE_ADMIN"));
-//        roleRepository.flush();
+//        roleRepository.save(new Role(2l,"ROLE_ADMIN"));
 //        roleRepository.save(new Role(2l, "ROLE_USER"));
-//        roleRepository.flush();
     }
 }
