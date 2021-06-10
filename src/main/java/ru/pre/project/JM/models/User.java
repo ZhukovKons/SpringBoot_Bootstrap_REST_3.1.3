@@ -17,8 +17,7 @@ public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "user_id")
-    //private Long id = 0l;
-    private long id;
+    private Long id;
 
     @Column(name = "name")
     @NotEmpty(message = "Имя не может быть пустым")
@@ -113,7 +112,7 @@ public class User implements UserDetails {
         this.email = email;
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 

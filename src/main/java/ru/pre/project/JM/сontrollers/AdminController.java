@@ -1,6 +1,7 @@
 package ru.pre.project.JM.сontrollers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -12,6 +13,7 @@ import ru.pre.project.JM.service.UserService;
 import javax.validation.Valid;
 
 @Controller
+@EnableWebSecurity
 @RequestMapping(value = "/admin")
 public class AdminController {
 
@@ -35,11 +37,9 @@ public class AdminController {
         return "/editor";
     }
 
-    @PatchMapping("/{id}")
-    //@RequestMapping(value = "/{id}", method = RequestMethod.PATCH)
+    @RequestMapping(value = "//update_{id}", method = RequestMethod.POST)
     public String update(@ModelAttribute("user") @Valid User user, BindingResult bindingResult,
                          @PathVariable("id") long id) {
-        System.out.println("public String update");
         if (bindingResult.hasErrors()) {
             return "/editor";
         }
@@ -47,11 +47,9 @@ public class AdminController {
         return "redirect:/admin";
     }
 
-    @DeleteMapping("/{id}")
-    //@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
+    @RequestMapping(value = "/delete_{id}", method = RequestMethod.POST)
     public String delete(@PathVariable("id") long id) {
         userService.remove(id);
-
         return "redirect:/admin";
     }
 

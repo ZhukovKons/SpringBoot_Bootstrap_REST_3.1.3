@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title></title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css">
+    <title th:text="${user.getName()}"/>
 </head>
 <body>
+<header th:insert="blocks/buttons :: userHead"></header>
 <table border="0" style="table-layout: fixed; width: 30%;">
     <tr>
-        <th width="5px"><a>№</a></th>
+        <th width="30px"><a>№</a></th>
         <th><a>Имя</a></th>
         <th><a>Фамилия</a></th>
         <th><a>Email</a></th>

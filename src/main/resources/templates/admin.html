@@ -1,13 +1,14 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title>Admin page</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>Администратор</title>
 </head>
 <body style="background-color: #e5d3f3">
+<header th:insert="blocks/buttons :: head"></header>
 <table border="0" style="table-layout: fixed; width: 50%;">
     <tr>
-        <th width="5px"><a>№</a></th>
+        <th width="30pt"><a>№</a></th>
         <th><a>Имя</a></th>
         <th><a>Фамилия</a></th>
         <th><a>Email</a></th>
@@ -40,28 +41,13 @@
                 </form>
             </th>
             <th>
-                <form th:method="DELETE" th:action="@{admin/{id}(id=${user.getId()})}">
+                <form th:method="DELETE" th:action="@{admin/delete_{id}(id=${user.getId()})}">
                     <input style="background-color: brown; color: aliceblue" type="submit" value=" Удалить "/>
                 </form>
             </th>
         </tr>
     </a>
 </table>
-
-
-<hr>
-<br>
-<!--<form action="/new" target="_blank">-->
-<!--    <button formtarget="_self" style="background-color: #40de47"> Создать нового пользователя </button>-->
-<!--</form>-->
-<!--<br>-->
-<!--<form action="/user" target="_blank">-->
-<!--    <button formtarget="_self" style="background-color: #efd438"> Домашняя страница </button>-->
-<!--</form>-->
-<!--<br>-->
-<!--<form action="/logout" target="_blank">-->
-<!--    <button formtarget="_self" style="background-color: #8fc3f1"> Выйти из аккаунта </button>-->
-<!--</form>-->
 
 </div>
 </body>

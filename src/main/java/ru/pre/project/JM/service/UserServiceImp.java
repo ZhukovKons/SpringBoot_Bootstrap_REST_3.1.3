@@ -11,6 +11,7 @@ import ru.pre.project.JM.repositorys.RoleRepository;
 import ru.pre.project.JM.repositorys.UserRepository;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional
@@ -35,20 +36,19 @@ public class UserServiceImp implements UserService {
 
     @Override
     public void add(User user) {
-        System.out.println("ADD START: " + user.toString());
         userRepository.save(user);
     }
 
     @Override
-    public void edit(User user, long id) { //todo
+    public void edit(User user, long id) {
         user.setRoles(getUser(id).getRoles());
-        System.out.println(roleRepository.findRoleByRole(user.getAddRole()).getRole());
-        if (roleRepository.findRoleByRole(user.getAddRole()) != null) {
-            user.getRoles().add(roleRepository.findRoleByRole(user.getAddRole()));
+        Role addRole = roleRepository.findAll().stream()
+                .filter(x -> user.getAddRole().equals(x.getRole()))
+                .findAny().orElse(null);
+        if (addRole != null){
+            user.getRoles().add(addRole);
         }
-        if (roleRepository.findRoleByRole(user.getDeleteRole()) != null) {
-            user.getRoles().remove(roleRepository.findRoleByRole(user.getDeleteRole()));
-        }
+        user.setRoles(user.getRoles().stream().filter(x -> !x.getRole().equals(user.getDeleteRole())).collect(Collectors.toSet()));
         userRepository.save(user);
     }
 
@@ -64,7 +64,7 @@ public class UserServiceImp implements UserService {
     }
 
     @Override
-    public void addDefaultRoles() { //todo
+    public void addDefaultRoles() {
         roleRepository.save(new Role("ROLE_ADMIN"));
         roleRepository.save(new Role("ROLE_USER"));
     }

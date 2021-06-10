@@ -10,13 +10,12 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
-    private final UserDetailsService userDetailsService; // сервис, с помощью которого тащим пользователя
-    private final SuccessUserHandler successUserHandler; // класс, в котором описана логика перенаправления пользователей по ролям
+    private final UserDetailsService userDetailsService;
+    private final SuccessUserHandler successUserHandler;
 
     public SecurityConfig(UserDetailsService userDetailsService, SuccessUserHandler successUserHandler) {
         this.userDetailsService = userDetailsService;
@@ -31,44 +30,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable();
-        secondSeting(http);
-    }
-
-    private void secondSeting (HttpSecurity http) throws Exception{
         http.authorizeRequests()
-                .antMatchers("/user").access("hasAnyRole('ROLE_USER')")
-                .antMatchers("/admin").access("hasAnyRole('ROLE_ADMIN')")
-                .antMatchers("/admin/*").hasAuthority("ADMIN")
+                .antMatchers("/test").permitAll()
+                .antMatchers("/admin/**").hasRole("ADMIN")
+                .antMatchers("/user").hasAnyRole("ADMIN","USER")
                 .and().formLogin()
                 .successHandler(successUserHandler);
     }
 
-    private void firstSeting (HttpSecurity http) throws Exception{
-        http.formLogin()
-                .loginPage("/login")
-                .successHandler(new SuccessUserHandler())
-                .loginProcessingUrl("/login")
-                .usernameParameter("j_username")
-                .passwordParameter("j_password")
-                .permitAll();
-
-        http.logout()
-                .permitAll()
-                .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-                .logoutSuccessUrl("/login?logout");
-
-        http
-                .authorizeRequests()
-                .antMatchers("/login").anonymous()
-                .antMatchers("/test").permitAll()
-                .antMatchers("/new").permitAll()
-                .antMatchers("/admin/*").hasAuthority("ADMIN")
-                .antMatchers("/user/*").hasAnyAuthority("ADMIN","USER")
-                .anyRequest().authenticated();
-    }
-
     @Bean
     public static PasswordEncoder passwordEncoder() {
-        return (NoOpPasswordEncoder) NoOpPasswordEncoder.getInstance();
+        return NoOpPasswordEncoder.getInstance();
     }
 }
