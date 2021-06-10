@@ -17,7 +17,8 @@ public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "user_id")
-    private Long id = 0l;
+    //private Long id = 0l;
+    private long id;
 
     @Column(name = "name")
     @NotEmpty(message = "Имя не может быть пустым")

@@ -48,7 +48,7 @@ public class AdminController {
     }
 
     @DeleteMapping("/{id}")
-    @RequestMapping (value = "/{id}", method = RequestMethod.DELETE)
+    //@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     public String delete(@PathVariable("id") long id) {
         userService.remove(id);
 

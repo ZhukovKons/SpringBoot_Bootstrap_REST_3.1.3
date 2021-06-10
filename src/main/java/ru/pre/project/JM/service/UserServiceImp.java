@@ -42,13 +42,13 @@ public class UserServiceImp implements UserService {
     @Override
     public void edit(User user, long id) { //todo
         user.setRoles(getUser(id).getRoles());
-        //System.out.println(roleRepository.findRoleByRole(user.getAddRole()).getRole());
-//        if (roleRepository.findRoleByRole(user.getAddRole()) != null) {
-//            user.getRoles().add(roleRepository.findRoleByRole(user.getAddRole()));
-//        }
-//        if (roleRepository.findRoleByRole(user.getDeleteRole()) != null) {
-//            user.getRoles().remove(roleRepository.findRoleByRole(user.getDeleteRole()));
-//        }
+        System.out.println(roleRepository.findRoleByRole(user.getAddRole()).getRole());
+        if (roleRepository.findRoleByRole(user.getAddRole()) != null) {
+            user.getRoles().add(roleRepository.findRoleByRole(user.getAddRole()));
+        }
+        if (roleRepository.findRoleByRole(user.getDeleteRole()) != null) {
+            user.getRoles().remove(roleRepository.findRoleByRole(user.getDeleteRole()));
+        }
         userRepository.save(user);
     }
 
