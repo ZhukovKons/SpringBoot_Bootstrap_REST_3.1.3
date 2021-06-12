@@ -21,7 +21,6 @@ public class DefaultController {
         this.userService = userService;
     }
 
-
     @GetMapping(value = "/login")
     public String getLoginPage() {
         return "login";

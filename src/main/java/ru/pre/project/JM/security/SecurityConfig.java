@@ -33,13 +33,18 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.authorizeRequests()
                 .antMatchers("/test").permitAll()
                 .antMatchers("/admin/**").hasRole("ADMIN")
-                .antMatchers("/user").hasAnyRole("ADMIN","USER")
+                .antMatchers("/user").hasAnyRole("ADMIN", "USER")
                 .and().formLogin()
-                .successHandler(successUserHandler);
+                .loginPage("/login")
+                .successHandler(new SuccessUserHandler())
+                //.loginProcessingUrl("/login")
+                .usernameParameter("login")
+                .passwordParameter("password")
+                .permitAll();
     }
 
     @Bean
     public static PasswordEncoder passwordEncoder() {
-        return NoOpPasswordEncoder.getInstance();
+        return (NoOpPasswordEncoder) NoOpPasswordEncoder.getInstance();
     }
 }
