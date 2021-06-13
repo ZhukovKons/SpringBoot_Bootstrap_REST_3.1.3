@@ -2,10 +2,28 @@
 
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
       integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
 <div th:fragment="button">
-    <div class="btn-group-vertical">
-        <button type="button" class="btn btn-primary">Admin</button>
-        <button type="button" class="btn btn-light">User</button>
+    <div class="btn-group-vertical btn-group-justified" style="width: 100%">
+        <button id="buttonAdmin" type="button" data-toggle="button" class="btn btn-primary text-left"
+                onclick="location.href = '/admin';">
+            Admin
+        </button>
+        <button type="button" data-toggle="button" class="btn btn-primary text-left"
+                onclick="location.href = '/user';">
+            User
+        </button>
     </div>
+    <script type="text/javascript">
+        var user = $("#user").attr("class");
+        jQuery('document').ready(function () {
+                if (user == "false") {
+                    jQuery('#buttonAdmin').remove();
+                }
+            }
+        );
+    </script>
 </div>
+
+
 </html>

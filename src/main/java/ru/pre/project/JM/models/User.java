@@ -167,6 +167,10 @@ public class User implements UserDetails {
         this.roles = roles;
     }
 
+    public boolean serchRoleAdmin(){ //todo
+       return roles.stream().anyMatch(x -> x.getRole().equals("ROLE_ADMIN"));
+    }
+
     @Override
     public String toString() {
         String[] s = new String[1];

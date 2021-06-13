@@ -11,6 +11,7 @@ import ru.pre.project.JM.service.UserService;
 
 
 import javax.validation.Valid;
+import java.security.Principal;
 
 @Controller
 @EnableWebSecurity
@@ -26,7 +27,8 @@ public class AdminController {
 
 
     @GetMapping
-    public String getAllUsers(Model model) {
+    public String getAllUsers(Model model, Principal principal) {
+        model.addAttribute("user", (User) userService.loadUserByUsername(principal.getName()));
         model.addAttribute("userList", userService.getAll());
         return "/admin";
     }
