@@ -6,6 +6,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.pre.project.JM.models.Role;
+import ru.pre.project.JM.models.RoleType;
 import ru.pre.project.JM.models.User;
 import ru.pre.project.JM.repositorys.RoleRepository;
 import ru.pre.project.JM.repositorys.UserRepository;
@@ -40,15 +41,15 @@ public class UserServiceImp implements UserService {
     }
 
     @Override
-    public void edit(User user, long id) {
+    public void edit(User user, long id) { // todo странный метод
         user.setRoles(getUser(id).getRoles());
         Role addRole = roleRepository.findAll().stream()
-                .filter(x -> user.getAddRole().equals(x.getRole()))
+                .filter(x -> user.getAddRole().equals(x.getRole().name()))
                 .findAny().orElse(null);
         if (addRole != null){
             user.getRoles().add(addRole);
         }
-        user.setRoles(user.getRoles().stream().filter(x -> !x.getRole().equals(user.getDeleteRole())).collect(Collectors.toSet()));
+        user.setRoles(user.getRoles().stream().filter(x -> !x.getRole().name().equals(user.getDeleteRole())).collect(Collectors.toSet()));
         userRepository.save(user);
     }
 
@@ -65,7 +66,7 @@ public class UserServiceImp implements UserService {
 
     @Override
     public void addDefaultRoles() {
-        roleRepository.save(new Role("ROLE_ADMIN"));
-        roleRepository.save(new Role("ROLE_USER"));
+        roleRepository.save(new Role(RoleType.ADMIN));
+        roleRepository.save(new Role(RoleType.USER));
     }
 }

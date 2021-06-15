@@ -4,9 +4,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.Size;
+import javax.validation.constraints.*;
 import java.util.Collection;
 import java.util.Set;
 
@@ -33,6 +31,11 @@ public class User implements UserDetails {
     @Email(message = "Не верный формат Email")
     private String email;
 
+    @Column
+    @Min(value = 18, message = "Для регистрации на сайте Вам должно быть не менее 18 лет")
+    @NotNull (message = "Возраст не может быть пустым")
+    private Integer age;
+
     @NotEmpty(message = "Пароль не может быть пустым")
     private String password;
 
@@ -49,31 +52,25 @@ public class User implements UserDetails {
     public User() {
     }
 
-    public User(String name, String lastname, String email) {
+    public User(String name, String lastname, Integer age, String email, String password, Set<Role> roles) {
         this.name = name;
         this.lastname = lastname;
         this.email = email;
-    }
-
-    public User(Long id, String name, String lastname, String email, String password, Set<Role> roles) {
-        this.id = id;
-        this.name = name;
-        this.lastname = lastname;
-        this.email = email;
-        this.password = password;
-        this.roles = roles;
-    }
-
-    public User(String name, String lastname, String email, String password, Set<Role> roles) {
-        this.name = name;
-        this.lastname = lastname;
-        this.email = email;
+        this.age = age;
         this.password = password;
         this.roles = roles;
     }
 
     public String getName() {
         return name;
+    }
+
+    public Integer getAge() {
+        return age;
+    }
+
+    public void setAge(Integer age) {
+        this.age = age;
     }
 
     public String getLastname() {
@@ -167,8 +164,8 @@ public class User implements UserDetails {
         this.roles = roles;
     }
 
-    public boolean serchRoleAdmin(){
-       return roles.stream().anyMatch(x -> x.getRole().equals("ROLE_ADMIN"));
+    public boolean serchRoleAdmin() {
+        return roles.stream().anyMatch(x -> x.getRole().equals(RoleType.ADMIN));
     }
 
     @Override

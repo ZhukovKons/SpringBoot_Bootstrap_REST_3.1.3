@@ -3,66 +3,27 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" http-equiv="Content-Type" content="width=device-width, initial-scale=1, charset=UTF-8">
-    <title>Admin panel</title>
+    <title th:text="${#httpServletRequest.requestURI == '/admin' ? 'Admin panel' : 'User page'}"/>
     <div th:insert="blocks/srccdn :: cdn"></div>
-    <div id="page" class="admin"/>
 </head>
 <body>
 <header th:insert="~{blocks/head :: head}"></header>
 <div class="container-fluid">
     <div class="row mt-3">
         <div class="col-2 p-0">
-
             <div th:insert="~{blocks/type_selection :: button}" id="butPanel"/>
-
         </div>
-        <div class="col">
-            <!--            код стрницы-->
-            <table border="0" style="table-layout: fixed; width: 50%;">
-                <tr>
-                    <th width="30pt"><a>№</a></th>
-                    <th><a>Имя</a></th>
-                    <th><a>Фамилия</a></th>
-                    <th><a>Email</a></th>
-                    <th><a>Роль</a></th>
-                    <th><a>Редактировать</a></th>
-                    <th><a>Удалить</a></th>
-                </tr>
-                <a th:each="user : ${userList}">
-
-                    <tr>
-                        <th>
-                            <a th:text="${user.getId()}">id</a>
-                        </th>
-                        <th>
-                            <a th:text="${user.getName()}">name</a>
-                        </th>
-                        <th>
-                            <a th:text="${user.getLastname()}">lastName</a>
-                        </th>
-                        <th>
-                            <a th:text="${user.getEmail()}">Email</a>
-                        </th>
-                        <th>
-                            <p style="line-height: 0.5px" th:each="role : ${user.getRoles()}"
-                               th:text="${role.getRole()}">Role</p>
-                        </th>
-                        <th>
-                            <form th:action="@{admin/{id} (id=${user.getId()})}" target="_blank">
-                                <input formtarget="_self" style="background-color: #57d448; color: #000000"
-                                       type="submit" value=" Изменить "/>
-                            </form>
-                        </th>
-                        <th>
-                            <form th:method="DELETE" th:action="@{admin/delete_{id}(id=${user.getId()})}">
-                                <input style="background-color: brown; color: aliceblue" type="submit"
-                                       value=" Удалить "/>
-                            </form>
-                        </th>
-                    </tr>
-                </a>
-            </table>
-            <!--            /код страницы-->
+        <div class="col ml-4">
+            <div th:switch="${#httpServletRequest.requestURI}">
+                <div class="container" th:case="'/admin'">
+                    <div class="row h1">Admin panel</div>
+                    <div class="row-12" th:insert="~{pages/admin_panel :: adminPage}"/>
+                </div>
+                <div class="container" th:case="'/user'">
+                    <div class="row h1">User information-page</div>
+                    <div class="row-12" th:insert="~{pages/user :: userPage}"/>
+                </div>
+            </div>
         </div>
     </div>
 </div>

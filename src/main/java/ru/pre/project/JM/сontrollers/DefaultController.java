@@ -5,6 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import ru.pre.project.JM.models.Role;
+import ru.pre.project.JM.models.RoleType;
 import ru.pre.project.JM.models.User;
 import ru.pre.project.JM.service.UserService;
 
@@ -30,22 +31,4 @@ public class DefaultController {
     public String logOut() {
         return "redirect:/logout";
     }
-
-    @GetMapping(value = "/new")
-    public String newUser(@ModelAttribute("userNew") User userNew) {
-        return "new";
-    }
-
-    @PostMapping(value = "/new")
-    @RequestMapping(value = "/new", method = RequestMethod.POST)
-    public String createUser(@ModelAttribute("userNew") @Valid User userNew,
-                             BindingResult bindingResult) {
-        if (bindingResult.hasErrors()) {
-            return null;
-        }
-        userNew.setRoles(Collections.singleton(new Role(2L, "ROLE_USER")));
-        userService.add(userNew);
-        return "redirect:/admin";
-    }
-
 }

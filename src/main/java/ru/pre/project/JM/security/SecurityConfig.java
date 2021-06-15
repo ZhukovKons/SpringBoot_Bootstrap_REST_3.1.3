@@ -10,6 +10,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import ru.pre.project.JM.models.RoleType;
 
 @Configuration
 @EnableWebSecurity
@@ -32,8 +33,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.csrf().disable();
         http.authorizeRequests()
                 .antMatchers("/test").permitAll()
-                .antMatchers("/admin/**").hasRole("ADMIN")
-                .antMatchers("/user").hasAnyRole("ADMIN", "USER")
+                .antMatchers("/admin/**").hasAuthority(RoleType.ADMIN.name())
+                .antMatchers("/user").hasAnyAuthority(RoleType.ADMIN.toString(), RoleType.USER.name())
                 .and().formLogin()
                 .loginPage("/login")
                 .successHandler(new SuccessUserHandler())
