@@ -1,5 +1,6 @@
 package ru.pre.project.JM.сontrollers;
 
+import org.hibernate.collection.internal.PersistentSet;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.stereotype.Controller;
@@ -14,7 +15,10 @@ import ru.pre.project.JM.service.UserService;
 
 import javax.validation.Valid;
 import java.security.Principal;
+import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashSet;
+import java.util.List;
 
 @Controller
 @EnableWebSecurity
@@ -32,7 +36,10 @@ public class AdminController {
     @GetMapping
     public String getAllUsers(Model model, Principal principal) {
         model.addAttribute("user", (User) userService.loadUserByUsername(principal.getName()));
+        model.addAttribute("allRoles",userService.getAllRole());
         model.addAttribute("userNew", new User());
+        List <Object> testList = new ArrayList<>(); //todo
+        model.addAttribute("testList", testList);
         model.addAttribute("userList", userService.getAll());
         return "/admin";
     }
@@ -65,8 +72,11 @@ public class AdminController {
         if (bindingResult.hasErrors()) {
             return null;
         }
-        userNew.setRoles(Collections.singleton(new Role(2L, RoleType.USER))); //todo
-        userService.add(userNew);
+       // System.out.println(userNew.getRoles());
+        //System.out.println(userNew.getAddRole());
+        //userNew.setRoles(Collections.singleton(new Role(2L, RoleType.USER))); //todo
+
+        //userService.add(userNew);
         return "redirect:/admin";
     }
 

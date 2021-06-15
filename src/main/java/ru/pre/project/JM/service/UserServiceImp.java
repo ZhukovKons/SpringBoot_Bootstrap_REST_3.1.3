@@ -36,6 +36,11 @@ public class UserServiceImp implements UserService {
     }
 
     @Override
+    public List<Role> getAllRole() {
+        return roleRepository.findAll();
+    }
+
+    @Override
     public void add(User user) {
         userRepository.save(user);
     }
