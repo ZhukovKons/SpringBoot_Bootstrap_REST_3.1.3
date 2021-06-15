@@ -167,7 +167,7 @@ public class User implements UserDetails {
         this.roles = roles;
     }
 
-    public boolean serchRoleAdmin(){ //todo
+    public boolean serchRoleAdmin(){
        return roles.stream().anyMatch(x -> x.getRole().equals("ROLE_ADMIN"));
     }
 
