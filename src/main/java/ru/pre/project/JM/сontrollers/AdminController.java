@@ -15,10 +15,7 @@ import ru.pre.project.JM.service.UserService;
 
 import javax.validation.Valid;
 import java.security.Principal;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.List;
+import java.util.*;
 
 @Controller
 @EnableWebSecurity
@@ -36,10 +33,8 @@ public class AdminController {
     @GetMapping
     public String getAllUsers(Model model, Principal principal) {
         model.addAttribute("user", (User) userService.loadUserByUsername(principal.getName()));
-        model.addAttribute("allRoles",userService.getAllRole());
+        model.addAttribute("allRoles", userService.getAllRole());
         model.addAttribute("userNew", new User());
-        List <Object> testList = new ArrayList<>(); //todo
-        model.addAttribute("testList", testList);
         model.addAttribute("userList", userService.getAll());
         return "/admin";
     }
@@ -50,7 +45,7 @@ public class AdminController {
         return "/editor";
     }
 
-    @RequestMapping(value = "//update_{id}", method = RequestMethod.POST)
+    @RequestMapping(value = "/update_{id}", method = RequestMethod.POST)
     public String update(@ModelAttribute("user") @Valid User user, BindingResult bindingResult,
                          @PathVariable("id") long id) {
         if (bindingResult.hasErrors()) {
@@ -68,11 +63,13 @@ public class AdminController {
 
     @RequestMapping(value = "/new", method = RequestMethod.POST)
     public String createUser(@ModelAttribute("userNew") @Valid User userNew,
-                             BindingResult bindingResult) {
+                             BindingResult bindingResult, @ModelAttribute("rolNewUser") List role) {
         if (bindingResult.hasErrors()) {
-            return null;
+            return "redirect:/admin#new";
         }
-       // System.out.println(userNew.getRoles());
+        role.forEach(System.out::println);
+//        Arrays.stream(role).forEach(System.out::println);
+        // System.out.println(userNew.getRoles());
         //System.out.println(userNew.getAddRole());
         //userNew.setRoles(Collections.singleton(new Role(2L, RoleType.USER))); //todo
 

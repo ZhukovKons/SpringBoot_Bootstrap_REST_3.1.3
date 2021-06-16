@@ -18,16 +18,15 @@
             </div>
             <div class="tab-pane fade" id="new">
                 <h2 class="h4 mb-3">Add new user</h2>
-                <div th:insert="pages/new :: newPage"></div>
+                <div th:replace="~{pages/new :: newPage}"></div>
             </div>
         </div>
     </div>
 
     <script>
-        // #product a – селектор, выбирающий элементы a, представляющие собой вкладки (при клике на которые нужно отображать соответствующий блок)
-        $('#product a').click(function (e) {
+        jQuery('#product a').click(function (e) {
             e.preventDefault();
-            $(this).tab('show');
+            jQuery(this).tab('show');
         });
     </script>
 </div>
