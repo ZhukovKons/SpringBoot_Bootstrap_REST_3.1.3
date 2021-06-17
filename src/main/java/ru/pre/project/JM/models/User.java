@@ -18,7 +18,7 @@ public class User implements UserDetails {
     private Long id;
 
     @Column(name = "name")
-//    @NotEmpty(message = "Имя не может быть пустым")
+//    @NotEmpty(message = "Имя не может быть пустым") //todo
 //    @Size(min = 2, max = 15, message = "Имя не может быть менее 2 символов или более 15")
     private String name;
 
