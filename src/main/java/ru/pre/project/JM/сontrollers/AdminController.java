@@ -16,6 +16,7 @@ import ru.pre.project.JM.service.UserService;
 import javax.validation.Valid;
 import java.security.Principal;
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Controller
 @EnableWebSecurity
@@ -63,17 +64,12 @@ public class AdminController {
 
     @RequestMapping(value = "/new", method = RequestMethod.POST)
     public String createUser(@ModelAttribute("userNew") @Valid User userNew,
-                             BindingResult bindingResult, @ModelAttribute("rolNewUser") List role) {
+                             BindingResult bindingResult, @RequestParam(value = "rolNewUser", required = false) List role) {
         if (bindingResult.hasErrors()) {
             return "redirect:/admin#new";
         }
-        role.forEach(System.out::println);
-//        Arrays.stream(role).forEach(System.out::println);
-        // System.out.println(userNew.getRoles());
-        //System.out.println(userNew.getAddRole());
-        //userNew.setRoles(Collections.singleton(new Role(2L, RoleType.USER))); //todo
-
-        //userService.add(userNew);
+        userNew.setRoles(userService.getAllRole().stream().filter(x -> role.contains(x.getRole().name())).collect(Collectors.toSet()));
+        userService.add(userNew);
         return "redirect:/admin";
     }
 

@@ -18,25 +18,25 @@ public class User implements UserDetails {
     private Long id;
 
     @Column(name = "name")
-    @NotEmpty(message = "Имя не может быть пустым")
-    @Size(min = 2, max = 15, message = "Имя не может быть менее 2 символов или более 15")
+//    @NotEmpty(message = "Имя не может быть пустым")
+//    @Size(min = 2, max = 15, message = "Имя не может быть менее 2 символов или более 15")
     private String name;
 
     @Column(name = "lastname")
-    @NotEmpty(message = "Фамилия не может быть пустой")
-    @Size(min = 2, max = 15, message = "Фамилия не может быть менее 2 символов или более 15")
+//    @NotEmpty(message = "Фамилия не может быть пустой")
+//    @Size(min = 2, max = 15, message = "Фамилия не может быть менее 2 символов или более 15")
     private String lastname;
 
     @Column(name = "email", unique = true)
-    @Email(message = "Не верный формат Email")
+//    @Email(message = "Не верный формат Email")
     private String email;
 
     @Column
-    @Min(value = 18, message = "Для регистрации на сайте Вам должно быть не менее 18 лет")
-    @NotNull (message = "Возраст не может быть пустым")
+//    @Min(value = 18, message = "Для регистрации на сайте Вам должно быть не менее 18 лет")
+//    @NotNull (message = "Возраст не может быть пустым")
     private Integer age;
 
-    @NotEmpty(message = "Пароль не может быть пустым")
+//    @NotEmpty(message = "Пароль не может быть пустым")
     private String password;
 
     @ManyToMany(fetch = FetchType.EAGER)
