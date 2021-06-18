@@ -48,11 +48,14 @@ public class AdminController {
 
     @RequestMapping(value = "/update_{id}", method = RequestMethod.POST)
     public String update(@ModelAttribute("userAct") @Valid User user, BindingResult bindingResult,
+                         @RequestParam(value = "rolNewUser", required = false) List role,
                          @PathVariable("id") long id) {
         if (bindingResult.hasErrors()) {
             return "/editor";
         }
+        user.setRoles(userService.getAllRole().stream().filter(x -> role.contains(x.getRole().name())).collect(Collectors.toSet()));
         System.out.println(user.toString());
+        user.getRoles().forEach(r -> System.out.println(r.getRole().name()));
         //userService.edit(user, id);
         return "redirect:/admin";
     }
