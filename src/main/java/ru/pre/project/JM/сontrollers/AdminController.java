@@ -47,12 +47,13 @@ public class AdminController {
     }
 
     @RequestMapping(value = "/update_{id}", method = RequestMethod.POST)
-    public String update(@ModelAttribute("user") @Valid User user, BindingResult bindingResult,
+    public String update(@ModelAttribute("userAct") @Valid User user, BindingResult bindingResult,
                          @PathVariable("id") long id) {
         if (bindingResult.hasErrors()) {
             return "/editor";
         }
-        userService.edit(user, id);
+        System.out.println(user.toString());
+        //userService.edit(user, id);
         return "redirect:/admin";
     }
 

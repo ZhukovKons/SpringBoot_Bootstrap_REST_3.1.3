@@ -1,47 +1,55 @@
-<!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title th:text="'Редактирование ' + ${user.getName()}"/>
-</head>
-<body>
-<header th:insert="blocks/buttons :: head"></header>
-<h3>Редактировать пользователя</h3>
-<br>
-<form th:method="PATCH" th:action="@{/admin/update_{id} (id=${user.getId()})}" th:object="${user}" >
-    <table border="0" style="table-layout: fixed; width:max-content">
-        <tr><th><label for="name">Имя: </label></th>
-            <th><input type="text" th:field="*{name}" id="name">
-                <div style="color:red" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Name Error</div></th></tr>
-        <tr><th><label for="lastname">Фамилия: </label></th>
-            <th><input type="text" th:field="*{lastname}" id="lastname">
-                <div style="color:red" th:if="${#fields.hasErrors('lastname')}" th:errors="*{lastname}">lastname Error
-                </div></th></tr>
-        <tr><th><label for="age">Возраст: </label></th>
-            <th><input type="number" th:field="*{age}" id="age">
-                <div style="color:red" th:if="${#fields.hasErrors('age')}" th:errors="*{age}">age Error
-                </div></th></tr>
-        <tr><th><label for="email">E-mail: </label></th>
-            <th><input type="text" th:field="*{email}" id="email">
-                <div style="color:red" th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Email Error</div></th></tr>
-        <tr><th><label for="password">Password: </label></th>
-            <th><input type="text" th:field="*{password}" id="password">
-                <div style="color:red" th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Password Error</div></th></tr>
-        <tr><th><p style="line-height: 0.5px" th:each="role : ${user.getRoles()}"
-                   th:text="${role.getRole()}">Role</p></th></tr>
-        <tr>
-            <th><label for="addRole">Добавить роль: </label></th>
-            <th> <input type="text" th:field="*{addRole}" id="addRole"></th>
-      </tr>
 
-        <tr>
-            <th><label for="delRole">Удалить роль: </label></th>
-            <th> <input type="text" th:field="*{deleteRole}" id="delRole"></th>
-        </tr>
-        </table>
-    <br>
+<div th:fragment="modal_editor">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+<!--            <form th:method="PATCH" th:action="@{/admin/update_{id} (id=${userAct.getId()})}" th:object="${userAct}" >-->
+            <div class="modal-body">
+                <span th:text="${userAct.getName()}">text</span>
+<!--                    <table border="0" style="table-layout: fixed; width:max-content">-->
+<!--                        <tr><th><label for="name">Имя: </label></th>-->
+<!--                            <th><input type="text" th:field="*{name}" id="name">-->
+<!--                                <div style="color:red" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Name Error</div></th></tr>-->
+<!--                        <tr><th><label for="lastname">Фамилия: </label></th>-->
+<!--                            <th><input type="text" th:field="*{lastname}" id="lastname">-->
+<!--                                <div style="color:red" th:if="${#fields.hasErrors('lastname')}" th:errors="*{lastname}">lastname Error-->
+<!--                                </div></th></tr>-->
+<!--                        <tr><th><label for="age">Возраст: </label></th>-->
+<!--                            <th><input type="number" th:field="*{age}" id="age">-->
+<!--                                <div style="color:red" th:if="${#fields.hasErrors('age')}" th:errors="*{age}">age Error-->
+<!--                                </div></th></tr>-->
+<!--                        <tr><th><label for="email">E-mail: </label></th>-->
+<!--                            <th><input type="text" th:field="*{email}" id="email">-->
+<!--                                <div style="color:red" th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Email Error</div></th></tr>-->
+<!--                        <tr><th><label for="password">Password: </label></th>-->
+<!--                            <th><input type="text" th:field="*{password}" id="password">-->
+<!--                                <div style="color:red" th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Password Error</div></th></tr>-->
+<!--                        <tr><th><p style="line-height: 0.5px" th:each="role : ${userAct.getRoles()}"-->
+<!--                                   th:text="${role.getRole()}">Role</p></th></tr>-->
+<!--                        <tr>-->
+<!--                            <th><label for="addRole">Добавить роль: </label></th>-->
+<!--                            <th> <input type="text" th:field="*{addRole}" id="addRole"></th>-->
+<!--                      </tr>-->
 
-    <input type="submit" style="background-color: aquamarine" value=" Сохранить изменения ">
-</form>
-</body>
+<!--                        <tr>-->
+<!--                            <th><label for="delRole">Удалить роль: </label></th>-->
+<!--                            <th> <input type="text" th:field="*{deleteRole}" id="delRole"></th>-->
+<!--                        </tr>-->
+<!--                        </table>-->
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button submit" class="btn btn-primary">Edit</button>
+            </div>
+<!--            </form>-->
+        </div>
+    </div>
+</div>
 </html>

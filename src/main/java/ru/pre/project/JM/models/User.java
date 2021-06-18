@@ -182,6 +182,6 @@ public class User implements UserDetails {
                 ", lastname='" + lastname +
                 ", email='" + email +
                 ", password='" + password +
-                ", roles=" + s[0];
+                ", roles=" + roles;
     }
 }
