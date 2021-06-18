@@ -18,36 +18,27 @@ public class User implements UserDetails {
     private Long id;
 
     @Column(name = "name")
-//    @NotEmpty(message = "Имя не может быть пустым") //todo
-//    @Size(min = 2, max = 15, message = "Имя не может быть менее 2 символов или более 15")
+    @NotEmpty(message = "Имя не может быть пустым")
     private String name;
 
     @Column(name = "lastname")
-//    @NotEmpty(message = "Фамилия не может быть пустой")
-//    @Size(min = 2, max = 15, message = "Фамилия не может быть менее 2 символов или более 15")
+    @NotEmpty(message = "Фамилия не может быть пустой")
     private String lastname;
 
     @Column(name = "email", unique = true)
-//    @Email(message = "Не верный формат Email")
+    @Email(message = "Не верный формат Email")
     private String email;
 
     @Column
-//    @Min(value = 18, message = "Для регистрации на сайте Вам должно быть не менее 18 лет")
-//    @NotNull (message = "Возраст не может быть пустым")
+    @NotNull(message = "Возраст не может быть пустым")
     private Integer age;
 
-//    @NotEmpty(message = "Пароль не может быть пустым")
     private String password;
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles;
-
-    @Transient
-    private String addRole;
-    @Transient
-    private String deleteRole;
 
     public User() {
     }
@@ -79,22 +70,6 @@ public class User implements UserDetails {
 
     public String getEmail() {
         return email;
-    }
-
-    public String getAddRole() {
-        return addRole;
-    }
-
-    public void setAddRole(String addRole) {
-        this.addRole = addRole;
-    }
-
-    public String getDeleteRole() {
-        return deleteRole;
-    }
-
-    public void setDeleteRole(String deleteRole) {
-        this.deleteRole = deleteRole;
     }
 
     public void setName(String name) {

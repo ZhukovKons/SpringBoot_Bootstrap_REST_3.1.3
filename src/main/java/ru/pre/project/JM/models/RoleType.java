@@ -1,8 +1,8 @@
 package ru.pre.project.JM.models;
 
 public enum RoleType {
-    ADMIN ("ROLE_ADMIN"),
-    USER ("USER_USER");
+    ADMIN("ROLE_ADMIN"),
+    USER("USER_USER");
 
     RoleType(String type) {
         this.type = type;

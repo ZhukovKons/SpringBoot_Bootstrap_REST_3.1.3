@@ -1,6 +1,5 @@
 package ru.pre.project.JM.сontrollers;
 
-import org.hibernate.collection.internal.PersistentSet;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.stereotype.Controller;
@@ -8,7 +7,6 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import ru.pre.project.JM.models.Role;
-import ru.pre.project.JM.models.RoleType;
 import ru.pre.project.JM.models.User;
 import ru.pre.project.JM.service.UserService;
 
@@ -30,33 +28,35 @@ public class AdminController {
         this.userService = userService;
     }
 
-
     @GetMapping
     public String getAllUsers(Model model, Principal principal) {
-        model.addAttribute("user", (User) userService.loadUserByUsername(principal.getName()));
+        model.addAttribute("user", userService.loadUserByUsername(principal.getName()));
         model.addAttribute("allRoles", userService.getAllRole());
         model.addAttribute("userNew", new User());
         model.addAttribute("userList", userService.getAll());
-        return "/admin";
-    }
-
-    @GetMapping("/{id}")
-    public String editUser(@PathVariable("id") long id, Model model) {
-        model.addAttribute("user", userService.getUser(id));
-        return "/editor";
+        return "/index";
     }
 
     @RequestMapping(value = "/update_{id}", method = RequestMethod.POST)
     public String update(@ModelAttribute("userAct") @Valid User user, BindingResult bindingResult,
-                         @RequestParam(value = "rolNewUser", required = false) List role,
-                         @PathVariable("id") long id) {
+                         @RequestParam(value = "rolNewUser", required = false) List<String> role) {
         if (bindingResult.hasErrors()) {
-            return "/editor";
+            return "redirect:/admin#edit_" + user.getId();
         }
-        user.setRoles(userService.getAllRole().stream().filter(x -> role.contains(x.getRole().name())).collect(Collectors.toSet()));
-        System.out.println(user.toString());
-        user.getRoles().forEach(r -> System.out.println(r.getRole().name()));
-        //userService.edit(user, id);
+        User oldUser = userService.getUser(user.getId());
+        List<Role> listRole = userService.getAllRole();
+        if (user.getPassword().length() == 0) {
+            user.setPassword(oldUser.getPassword());
+        }
+        if (role == null) {
+            user.setRoles(oldUser.getRoles());
+        } else {
+            user.setRoles(listRole
+                    .stream()
+                    .filter(x -> role.contains(x.getRole().name()))
+                    .collect(Collectors.toSet()));
+        }
+        userService.add(user);
         return "redirect:/admin";
     }
 
@@ -68,7 +68,7 @@ public class AdminController {
 
     @RequestMapping(value = "/new", method = RequestMethod.POST)
     public String createUser(@ModelAttribute("userNew") @Valid User userNew,
-                             BindingResult bindingResult, @RequestParam(value = "rolNewUser", required = false) List role) {
+                             BindingResult bindingResult, @RequestParam(value = "rolNewUser", required = false) List <String> role) {
         if (bindingResult.hasErrors()) {
             return "redirect:/admin#new";
         }

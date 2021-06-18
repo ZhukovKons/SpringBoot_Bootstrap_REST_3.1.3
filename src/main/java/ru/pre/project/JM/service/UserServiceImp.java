@@ -46,19 +46,6 @@ public class UserServiceImp implements UserService {
     }
 
     @Override
-    public void edit(User user, long id) { // todo странный метод
-        user.setRoles(getUser(id).getRoles());
-        Role addRole = roleRepository.findAll().stream()
-                .filter(x -> user.getAddRole().equals(x.getRole().name()))
-                .findAny().orElse(null);
-        if (addRole != null){
-            user.getRoles().add(addRole);
-        }
-        user.setRoles(user.getRoles().stream().filter(x -> !x.getRole().name().equals(user.getDeleteRole())).collect(Collectors.toSet()));
-        userRepository.save(user);
-    }
-
-    @Override
     public void remove(long id) {
         userRepository.deleteById(id);
     }

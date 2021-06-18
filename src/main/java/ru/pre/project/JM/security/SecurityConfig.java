@@ -38,7 +38,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and().formLogin()
                 .loginPage("/login")
                 .successHandler(new SuccessUserHandler())
-                //.loginProcessingUrl("/login")
                 .usernameParameter("login")
                 .passwordParameter("password")
                 .permitAll();

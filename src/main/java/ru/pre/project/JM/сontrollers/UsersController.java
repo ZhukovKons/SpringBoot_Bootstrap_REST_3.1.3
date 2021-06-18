@@ -27,6 +27,6 @@ public class UsersController {
     public String getUserPage(Model model, Principal principal) {
         User u = (User) userService.loadUserByUsername(principal.getName());
         model.addAttribute("user", u);
-        return "admin";
+        return "index";
     }
 }

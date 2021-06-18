@@ -15,8 +15,6 @@ public interface UserService extends UserDetailsService {
 
     void add(User user);
 
-    void edit(User user, long id);
-
     void remove(long id);
 
     UserDetails loadUserByUsername(String s) throws UsernameNotFoundException;
