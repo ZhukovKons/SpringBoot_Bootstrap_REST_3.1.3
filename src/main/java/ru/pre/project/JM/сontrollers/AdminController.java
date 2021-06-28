@@ -6,7 +6,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import ru.pre.project.JM.models.Role;
 import ru.pre.project.JM.models.User;
 import ru.pre.project.JM.service.UserService;
 
@@ -14,7 +13,6 @@ import ru.pre.project.JM.service.UserService;
 import javax.validation.Valid;
 import java.security.Principal;
 import java.util.*;
-import java.util.stream.Collectors;
 
 @Controller
 @EnableWebSecurity
