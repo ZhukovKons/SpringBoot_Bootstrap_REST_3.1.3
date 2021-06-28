@@ -41,7 +41,28 @@ public class UserServiceImp implements UserService {
     }
 
     @Override
-    public void add(User user) {
+    public void add(User user, List<String> role) {
+        user.setRoles(getAllRole().stream()
+                .filter(x -> role.contains(x.getRole().name()))
+                .collect(Collectors.toSet()));
+        userRepository.save(user);
+    }
+
+    @Override
+    public void updateUser(User user, List<String> role) {
+        User oldUser = userRepository.findById(user.getId()).get();
+        List<Role> listRole = getAllRole();
+        if (user.getPassword().length() == 0) {
+            user.setPassword(oldUser.getPassword());
+        }
+        if (role == null) {
+            user.setRoles(oldUser.getRoles());
+        } else {
+            user.setRoles(listRole
+                    .stream()
+                    .filter(x -> role.contains(x.getRole().name()))
+                    .collect(Collectors.toSet()));
+        }
         userRepository.save(user);
     }
 

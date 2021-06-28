@@ -13,13 +13,15 @@ public interface UserService extends UserDetailsService {
 
     User getUser(long id);
 
-    void add(User user);
+    void add(User user, List<String> role);
 
     void remove(long id);
 
     UserDetails loadUserByUsername(String s) throws UsernameNotFoundException;
 
     void addDefaultRoles();
+
+    void updateUser(User user, List<String> role);
 
     List<Role> getAllRole();
 }

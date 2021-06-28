@@ -43,20 +43,7 @@ public class AdminController {
         if (bindingResult.hasErrors()) {
             return "redirect:/admin#edit_" + user.getId();
         }
-        User oldUser = userService.getUser(user.getId());
-        List<Role> listRole = userService.getAllRole();
-        if (user.getPassword().length() == 0) {
-            user.setPassword(oldUser.getPassword());
-        }
-        if (role == null) {
-            user.setRoles(oldUser.getRoles());
-        } else {
-            user.setRoles(listRole
-                    .stream()
-                    .filter(x -> role.contains(x.getRole().name()))
-                    .collect(Collectors.toSet()));
-        }
-        userService.add(user);
+        userService.updateUser(user, role);
         return "redirect:/admin";
     }
 
@@ -68,12 +55,11 @@ public class AdminController {
 
     @RequestMapping(value = "/new", method = RequestMethod.POST)
     public String createUser(@ModelAttribute("userNew") @Valid User userNew,
-                             BindingResult bindingResult, @RequestParam(value = "rolNewUser", required = false) List <String> role) {
+                             BindingResult bindingResult, @RequestParam(value = "rolNewUser", required = false) List<String> role) {
         if (bindingResult.hasErrors()) {
             return "redirect:/admin#new";
         }
-        userNew.setRoles(userService.getAllRole().stream().filter(x -> role.contains(x.getRole().name())).collect(Collectors.toSet()));
-        userService.add(userNew);
+        userService.add(userNew, role);
         return "redirect:/admin";
     }
 
