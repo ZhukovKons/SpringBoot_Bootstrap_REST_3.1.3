@@ -6,14 +6,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import ru.pre.project.JM.entity.User;
 import ru.pre.project.JM.model.UserModel;
 import ru.pre.project.JM.service.UserService;
 
 
 import javax.validation.Valid;
 import java.security.Principal;
-import java.util.*;
 import java.util.stream.Collectors;
 
 @Controller
@@ -42,6 +40,7 @@ public class AdminController {
     @RequestMapping(value = "/update_{id}", method = RequestMethod.POST)
     public String update(@ModelAttribute("userAct") @Valid UserModel updateUser, BindingResult bindingResult){
         if (bindingResult.hasErrors()) {
+            System.out.println(bindingResult.hasErrors());
             return "redirect:/admin#edit_" + updateUser.getId();
         }
         userService.updateUser(updateUser);
@@ -58,6 +57,7 @@ public class AdminController {
     public String createUser(@ModelAttribute("userNew") @Valid UserModel userNew,
                              BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
+            System.out.println(bindingResult.hasErrors());
             return "redirect:/admin#new";
         }
         userService.add(userNew);

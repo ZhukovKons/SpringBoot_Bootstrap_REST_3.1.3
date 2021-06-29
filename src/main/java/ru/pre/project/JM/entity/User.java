@@ -18,19 +18,15 @@ public class User implements UserDetails {
     private Long id;
 
     @Column(name = "name")
-    @NotEmpty(message = "Имя не может быть пустым")
     private String name;
 
     @Column(name = "lastname")
-    @NotEmpty(message = "Фамилия не может быть пустой")
     private String lastname;
 
     @Column(name = "email", unique = true)
-    @Email(message = "Не верный формат Email")
     private String email;
 
     @Column
-    @NotNull(message = "Возраст не может быть пустым")
     private Integer age;
 
     private String password;
