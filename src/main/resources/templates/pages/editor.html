@@ -10,7 +10,7 @@
                 </button>
             </div>
             <form th:method="PATCH" class="col-4 needs-validation"
-                  th:action="@{/admin/update_{id} (id=${userAct.getId()})}" th:object="${userAct}">
+                  th:action="@{/update_{id} (id=${userAct.getId()})}" th:object="${userAct}">
                 <div class="modal-body">
                     <div class="container center col-6 font-weight-bold text-center">
 

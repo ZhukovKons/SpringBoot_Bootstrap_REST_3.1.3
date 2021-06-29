@@ -4,7 +4,7 @@
 <div th:fragment="newPage" class="container-fluid">
     <a id="newUserAdd"></a>
     <div class="card-body" align="center">
-        <form th:method="POST" class="col-4 needs-validation" th:action="@{/admin/new}" th:object="${userNew}">
+        <form th:method="POST" class="col-4 needs-validation" th:action="@{/new}" th:object="${userNew}">
             <b>
                 <div class="form-group">
                     <label for="name">First Name</label>

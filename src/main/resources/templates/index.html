@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" http-equiv="Content-Type" content="width=device-width, initial-scale=1, charset=UTF-8">
-    <title th:text="${#httpServletRequest.requestURI == '/admin' ? 'Admin panel' : 'User page'}"/>
+    <title th:text="${#httpServletRequest.requestURI == '/' ? 'Admin panel' : 'User page'}"/>
     <div th:insert="blocks/srccdn :: cdn"></div>
 </head>
 <body>
@@ -15,7 +15,7 @@
         </div>
         <div class="col ml-4">
             <div th:switch="${#httpServletRequest.requestURI}">
-                <div class="container" th:case="'/admin'">
+                <div class="container" th:case="'/'">
                     <div class="row h1">Admin panel</div>
                     <div class="row-12" th:insert="~{pages/admin_panel :: adminPage}"/>
                 </div>

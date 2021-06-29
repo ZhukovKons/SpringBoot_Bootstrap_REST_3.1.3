@@ -16,7 +16,7 @@ import java.util.stream.Collectors;
 
 @Controller
 @EnableWebSecurity
-@RequestMapping(value = "/admin")
+@RequestMapping(value = "/")
 public class AdminController {
 
     private final UserService userService;
@@ -41,16 +41,16 @@ public class AdminController {
     public String update(@ModelAttribute("userAct") @Valid UserModel updateUser, BindingResult bindingResult){
         if (bindingResult.hasErrors()) {
             System.out.println(bindingResult.hasErrors());
-            return "redirect:/admin#edit_" + updateUser.getId();
+            return "redirect:/#edit_" + updateUser.getId();
         }
         userService.updateUser(updateUser);
-        return "redirect:/admin";
+        return "redirect:/";
     }
 
     @RequestMapping(value = "/delete_{id}", method = RequestMethod.POST)
     public String delete(@PathVariable("id") long id) {
         userService.remove(id);
-        return "redirect:/admin";
+        return "redirect:/";
     }
 
     @RequestMapping(value = "/new", method = RequestMethod.POST)
@@ -58,10 +58,10 @@ public class AdminController {
                              BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             System.out.println(bindingResult.hasErrors());
-            return "redirect:/admin#new";
+            return "redirect:/#new";
         }
         userService.add(userNew);
-        return "redirect:/admin";
+        return "redirect:/";
     }
 
 
