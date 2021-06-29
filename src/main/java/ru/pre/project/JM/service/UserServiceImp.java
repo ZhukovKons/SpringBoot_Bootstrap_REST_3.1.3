@@ -55,7 +55,7 @@ public class UserServiceImp implements UserService {
     }
 
     @Override
-    public void updateUser(UserModel model) {
+    public UserModel updateUser(UserModel model) {
         User user = model.getUser();
         User oldUser = userRepository.findById(user.getId()).get();
         List<Role> listRole = getAllRole();
@@ -70,7 +70,7 @@ public class UserServiceImp implements UserService {
                     .filter(x -> model.getRoles().contains(x.getRole().name()))
                     .collect(Collectors.toSet()));
         }
-        userRepository.save(user);
+        return UserModel.getModel(userRepository.save(user));
     }
 
     @Override

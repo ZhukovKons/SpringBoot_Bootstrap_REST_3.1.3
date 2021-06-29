@@ -27,35 +27,41 @@ public class AdminController {
 
     @GetMapping(value = "/all")
     public ResponseEntity getAllUsers() {
-        List<UserModel> users = userService.getAll();
         return ResponseEntity.ok(userService.getAll());
     }
 
-    @RequestMapping(value = "/update_{id}", method = RequestMethod.POST)
-    public String update(@ModelAttribute("userAct") @Valid UserModel updateUser, BindingResult bindingResult){
-        if (bindingResult.hasErrors()) {
-            System.out.println(bindingResult.hasErrors());
-            return "redirect:/#edit_" + updateUser.getId();
+   @PutMapping(value = "/update")
+    public ResponseEntity update(@RequestBody UserModel updateUser, BindingResult bindingResult) {
+        try {
+            return ResponseEntity.ok(userService.updateUser(updateUser));
+        }catch (Exception e){
+         return ResponseEntity.badRequest().body("Error update user "+ updateUser.getName());
         }
-        userService.updateUser(updateUser);
-        return "redirect:/";
     }
 
-    @RequestMapping(value = "/delete_{id}", method = RequestMethod.POST)
-    public String delete(@PathVariable("id") long id) {
-        userService.remove(id);
-        return "redirect:/";
+    @DeleteMapping(value = "/delete_{id}")
+    public ResponseEntity delete(@PathVariable("id") long id) {
+        try {
+            userService.remove(id);
+            return ResponseEntity.ok("User id=" + id + " deleted");
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body("ERROR: The user with this ID " + id + " could not be deleted! : " + e.getMessage());
+        }
     }
 
     @RequestMapping(value = "/new", method = RequestMethod.POST)
-    public String createUser(@ModelAttribute("userNew") @Valid UserModel userNew,
-                             BindingResult bindingResult) {
-        if (bindingResult.hasErrors()) {
-            System.out.println(bindingResult.hasErrors());
-            return "redirect:/#new";
+    public ResponseEntity createUser(
+//            @ModelAttribute("userNew") @Valid UserModel userNew, todo
+            @RequestBody UserModel userNew,
+            BindingResult bindingResult) {
+
+        try {
+            userService.add(userNew);
+            return ResponseEntity.ok("User " + userNew.getName() + " created");
+        } catch (Exception uEx) {
+            return ResponseEntity.badRequest().body("ERROR: User created: " + uEx.getMessage());
         }
-        userService.add(userNew);
-        return "redirect:/";
+//        if (bindingResult.hasErrors()) { todo
     }
 
 

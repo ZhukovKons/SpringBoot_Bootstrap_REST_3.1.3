@@ -24,7 +24,7 @@ public interface UserService extends UserDetailsService {
 
     void addDefaultRoles();
 
-    void updateUser(UserModel model);
+    UserModel updateUser(UserModel model);
 
     List<Role> getAllRole();
 }
