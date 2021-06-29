@@ -1,9 +1,8 @@
 package ru.pre.project.JM.сontrollers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import ru.pre.project.JM.model.UserModel;
@@ -11,10 +10,10 @@ import ru.pre.project.JM.service.UserService;
 
 
 import javax.validation.Valid;
-import java.security.Principal;
-import java.util.stream.Collectors;
+import java.util.List;
 
-@Controller
+
+@RestController
 @EnableWebSecurity
 @RequestMapping(value = "/")
 public class AdminController {
@@ -26,15 +25,10 @@ public class AdminController {
         this.userService = userService;
     }
 
-    @GetMapping
-    public String getAllUsers(Model model, Principal principal) {
-        model.addAttribute("user", userService.loadUserModelByUsername(principal.getName()));
-        model.addAttribute("allRoles", userService.getAllRole().stream()
-                .map(role -> role.getRole().name())
-                .collect(Collectors.toList()));
-        model.addAttribute("userNew", new UserModel());
-        model.addAttribute("userList", userService.getAll());
-        return "/index";
+    @GetMapping(value = "/all")
+    public ResponseEntity getAllUsers() {
+        List<UserModel> users = userService.getAll();
+        return ResponseEntity.ok(userService.getAll());
     }
 
     @RequestMapping(value = "/update_{id}", method = RequestMethod.POST)

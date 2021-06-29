@@ -1,5 +1,6 @@
 package ru.pre.project.JM.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import ru.pre.project.JM.entity.RoleType;
 import ru.pre.project.JM.entity.User;
 
@@ -9,7 +10,7 @@ import javax.validation.constraints.NotNull;
 import java.util.List;
 import java.util.stream.Collectors;
 
-
+@JsonIgnoreProperties(value = "user")
 public class UserModel {
 
     private Long id;
@@ -33,15 +34,15 @@ public class UserModel {
 
     public static UserModel getModel(User user) {
         UserModel model = new UserModel();
-        model.id = user.getId();
-        model.name = user.getName();
-        model.lastname = user.getLastname();
-        model.email = user.getEmail();
-        model.age = user.getAge();
+        model.setId(user.getId());
+        model.setName(user.getName());
+        model.setLastname(user.getLastname());
+        model.setEmail(user.getEmail());
+        model.setAge(user.getAge());
         model.password = null;
-        model.roles = user.getRoles().stream()
+        model.setRoles(user.getRoles().stream()
                 .map(role -> role.getRole().name())
-                .collect(Collectors.toList());
+                .collect(Collectors.toList()));
         return model;
     }
 

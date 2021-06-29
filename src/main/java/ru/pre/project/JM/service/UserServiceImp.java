@@ -28,7 +28,10 @@ public class UserServiceImp implements UserService {
     @Override
     @Transactional(readOnly = true)
     public List<UserModel> getAll() {
-        return userRepository.findAll().stream().map(UserModel::getModel).collect(Collectors.toList());
+        List<User> listAllUser = userRepository.findAll();
+        List<UserModel> listAll = listAllUser.stream().map(UserModel::getModel)
+                .collect(Collectors.toList());
+        return listAll;
     }
 
     @Override

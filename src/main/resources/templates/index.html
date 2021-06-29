@@ -4,7 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" http-equiv="Content-Type" content="width=device-width, initial-scale=1, charset=UTF-8">
     <title th:text="${#httpServletRequest.requestURI == '/' ? 'Admin panel' : 'User page'}"/>
-    <div th:insert="blocks/srccdn :: cdn"></div>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 </head>
 <body>
 <header th:insert="~{blocks/head :: head}"></header>
@@ -27,5 +28,7 @@
         </div>
     </div>
 </div>
+
+<div th:insert="blocks/srccdn :: cdn"></div>
 </body>
 </html>
