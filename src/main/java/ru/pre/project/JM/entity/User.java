@@ -1,4 +1,4 @@
-package ru.pre.project.JM.models;
+package ru.pre.project.JM.entity;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -137,10 +137,6 @@ public class User implements UserDetails {
 
     public void setRoles(Set<Role> roles) {
         this.roles = roles;
-    }
-
-    public boolean serchRoleAdmin() {
-        return roles.stream().anyMatch(x -> x.getRole().equals(RoleType.ADMIN));
     }
 
     @Override

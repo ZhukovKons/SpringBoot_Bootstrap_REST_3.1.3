@@ -1,4 +1,4 @@
-package ru.pre.project.JM.models;
+package ru.pre.project.JM.entity;
 
 public enum RoleType {
     ADMIN("ROLE_ADMIN"),

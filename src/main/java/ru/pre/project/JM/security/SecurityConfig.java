@@ -10,7 +10,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import ru.pre.project.JM.models.RoleType;
+import ru.pre.project.JM.entity.RoleType;
 
 @Configuration
 @EnableWebSecurity

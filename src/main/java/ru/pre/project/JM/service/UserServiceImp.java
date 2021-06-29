@@ -5,9 +5,10 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import ru.pre.project.JM.models.Role;
-import ru.pre.project.JM.models.RoleType;
-import ru.pre.project.JM.models.User;
+import ru.pre.project.JM.entity.Role;
+import ru.pre.project.JM.entity.RoleType;
+import ru.pre.project.JM.entity.User;
+import ru.pre.project.JM.model.UserModel;
 import ru.pre.project.JM.repositorys.RoleRepository;
 import ru.pre.project.JM.repositorys.UserRepository;
 
@@ -23,16 +24,17 @@ public class UserServiceImp implements UserService {
     @Autowired
     private RoleRepository roleRepository;
 
+
     @Override
     @Transactional(readOnly = true)
-    public List<User> getAll() {
-        return userRepository.findAll();
+    public List<UserModel> getAll() {
+        return userRepository.findAll().stream().map(UserModel::getModel).collect(Collectors.toList());
     }
 
     @Override
     @Transactional(readOnly = true)
-    public User getUser(long id) {
-        return userRepository.findById(id).get();
+    public UserModel getUser(long id) {
+        return UserModel.getModel(userRepository.findById(id).get());
     }
 
     @Override
@@ -41,26 +43,28 @@ public class UserServiceImp implements UserService {
     }
 
     @Override
-    public void add(User user, List<String> role) {
+    public void add(UserModel model) {
+        User user = model.getUser();
         user.setRoles(getAllRole().stream()
-                .filter(x -> role.contains(x.getRole().name()))
+                .filter(x -> model.getRoles().contains(x.getRole().name()))
                 .collect(Collectors.toSet()));
         userRepository.save(user);
     }
 
     @Override
-    public void updateUser(User user, List<String> role) {
+    public void updateUser(UserModel model) {
+        User user = model.getUser();
         User oldUser = userRepository.findById(user.getId()).get();
         List<Role> listRole = getAllRole();
         if (user.getPassword().length() == 0) {
             user.setPassword(oldUser.getPassword());
         }
-        if (role == null) {
+        if (model.getRoles() == null) {
             user.setRoles(oldUser.getRoles());
         } else {
             user.setRoles(listRole
                     .stream()
-                    .filter(x -> role.contains(x.getRole().name()))
+                    .filter(x -> model.getRoles().contains(x.getRole().name()))
                     .collect(Collectors.toSet()));
         }
         userRepository.save(user);
@@ -75,6 +79,12 @@ public class UserServiceImp implements UserService {
     @Transactional(readOnly = true)
     public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
         return userRepository.findUserByEmail(s);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public UserModel loadUserModelByUsername(String s) throws UsernameNotFoundException {
+        return UserModel.getModel((User) userRepository.findUserByEmail(s));
     }
 
     @Override

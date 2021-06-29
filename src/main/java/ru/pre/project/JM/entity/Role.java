@@ -1,4 +1,4 @@
-package ru.pre.project.JM.models;
+package ru.pre.project.JM.entity;
 
 import org.springframework.security.core.GrantedAuthority;
 

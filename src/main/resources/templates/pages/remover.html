@@ -46,10 +46,10 @@
 
                         <div class="form-group">
                             <label for="selectRoles">Role</label>
-                            <select multiple th:size="${allRoles.size()}" name="rolNewUser" class="form-control"
+                            <select multiple th:size="*{roles.size()}" name="rolNewUser" class="form-control"
                                     id="selectRoles">
-                                <option aria-current="true" disabled th:each="role : ${allRoles}"
-                                        th:value="${role.getRole()}" th:text="${role.getRole().toString()}">
+                                <option aria-current="true" disabled th:each="role : *{roles}"
+                                        th:value="${role}" th:text="${role}">
                                 </option>
                             </select>
                         </div>

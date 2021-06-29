@@ -4,9 +4,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import ru.pre.project.JM.models.Role;
-import ru.pre.project.JM.models.RoleType;
-import ru.pre.project.JM.models.User;
+import ru.pre.project.JM.entity.Role;
+import ru.pre.project.JM.entity.RoleType;
+import ru.pre.project.JM.entity.User;
 import ru.pre.project.JM.repositorys.UserRepository;
 import ru.pre.project.JM.service.UserService;
 

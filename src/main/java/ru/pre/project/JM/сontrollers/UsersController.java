@@ -5,7 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import ru.pre.project.JM.models.User;
+import ru.pre.project.JM.model.UserModel;
 import ru.pre.project.JM.service.UserService;
 
 import java.security.Principal;
@@ -25,8 +25,7 @@ public class UsersController {
 
     @GetMapping()
     public String getUserPage(Model model, Principal principal) {
-        User u = (User) userService.loadUserByUsername(principal.getName());
-        model.addAttribute("user", u);
+        model.addAttribute("user", userService.loadUserModelByUsername(principal.getName()));
         return "index";
     }
 }
