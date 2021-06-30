@@ -1,7 +1,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <div th:fragment="tableAllUsers">
-    <table class="table">
+    <table class="table" id="tableAllUsers">
         <thead>
         <tr>
             <th scope="col">ID</th>
@@ -32,7 +32,7 @@
         </tbody>
         <div th:each="userAct : ${userList}">
             <div th:attr="id='edit_' + ${userAct.getId()}" th:insert="~{pages/editor :: modal_editor}"
-                 class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+                 className="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
                  aria-hidden="true">Modal editor
             </div>
         </div>

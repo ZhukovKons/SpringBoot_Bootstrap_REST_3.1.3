@@ -6,16 +6,19 @@ let buttonNewAllUsers = document.getElementById('nav-profile-tab'); //#new
 document.onclick = event => {
     switch (event.target.id) {
         case 'buttonAdmin':
-            alert(this.id);
+            // alert(this.id);
             break;
         case 'buttonUser':
-            alert('buttonUser');
+            // alert('buttonUser');
             break;
         case 'nav-home-tab':
             clickAllUser();
             break;
         case 'nav-profile-tab':
-            alert(target.id);
+            // alert('nav-profile-tab');
+            break;
+        case 'nav-profile-tab newUserOpenPage':
+            getAllRoles();
             break;
     }
 }
@@ -32,10 +35,6 @@ function clickAllUser(){
 
     fetch("http://localhost:8080/all", requestOptions)
         .then(response => response.json())
-        .then(result => Array.from(result).forEach(user => addLineInTableUsers(user)))
+        .then(result => Array.from(result).forEach(user => addUserForTable(user)))
         .catch(error => alert('Error: ' + error));
-
-    function addLineInTableUsers(user){
-        console.log(user)
-    }
 }

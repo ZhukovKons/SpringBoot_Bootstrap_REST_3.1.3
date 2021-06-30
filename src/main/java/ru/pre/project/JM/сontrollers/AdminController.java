@@ -11,6 +11,7 @@ import ru.pre.project.JM.service.UserService;
 
 import javax.validation.Valid;
 import java.util.List;
+import java.util.stream.Collectors;
 
 
 @RestController
@@ -28,6 +29,11 @@ public class AdminController {
     @GetMapping(value = "/all")
     public ResponseEntity getAllUsers() {
         return ResponseEntity.ok(userService.getAll());
+    }
+
+    @GetMapping(value = "/roles")
+    public ResponseEntity getAllRoles(){
+        return ResponseEntity.ok(userService.getAllRole().stream().map(role -> role.getRole()).collect(Collectors.toList()));
     }
 
    @PutMapping(value = "/update")
