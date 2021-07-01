@@ -15,16 +15,16 @@ public class UserModel {
 
     private Long id;
 
-    @NotEmpty(message = "Имя не может быть пустым")
+//    @NotEmpty(message = "Имя не может быть пустым")
     private String name;
 
-    @NotEmpty(message = "Фамилия не может быть пустой")
+//    @NotEmpty(message = "Фамилия не может быть пустой")
     private String lastname;
 
-    @Email(message = "Не верный формат Email")
+//    @Email(message = "Не верный формат Email")
     private String email;
 
-    @NotNull(message = "Возраст не может быть пустым")
+//    @NotNull(message = "Возраст не может быть пустым")
     private Integer age;
 
     private String password;

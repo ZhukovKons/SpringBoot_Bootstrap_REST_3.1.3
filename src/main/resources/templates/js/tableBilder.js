@@ -1,15 +1,13 @@
 function addUserForTable(user) {
     let table = document.querySelector('#bodyTableAllUsers');
     let lineUserParam = document.createElement('tr');
-    let strRole;
-    user.roles.forEach(r => strRole += r);
 
     lineUserParam.innerHTML = '<td scope="row">' + user.id + '</td>\n' +
         '<td >' + user.name + '</td>\n' +
         '<td >' + user.lastname + '</td>\n' +
         '<td >' + user.age + '</td>\n' +
         '<td >' + user.email + '</td>\n' +
-        '<td >' + strRole + '</td>\n' +
+        '<td >' + user.roles.join(" ") + '</td>\n' +
         '<td><button type="button" data-toggle="modal" class="btn btn-info">Edit</button></td>' +
         '<td><button type="button" data-toggle="modal" class="btn btn-danger">Delete</button></td>';
 
