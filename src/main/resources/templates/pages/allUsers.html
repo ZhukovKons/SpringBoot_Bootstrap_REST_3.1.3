@@ -30,18 +30,105 @@
             </td>
         </tr>
         </tbody>
-        <div th:each="userAct : ${userList}">
-            <div th:attr="id='edit_' + ${userAct.getId()}" th:insert="~{pages/editor :: modal_editor}"
-                 className="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-                 aria-hidden="true">Modal editor
+        <template id="editModalTemp">
+            <div class="modal fade" id="editId" tabindex="-1" role="dialog"
+                 aria-labelledby="exampleModalLabel"
+                 aria-hidden="true">
+                <div>
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title">Edit user</h5>
+                                <button type="button" class="close" data-dismiss="modal"
+                                        aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <form method="post" class="col-4 needs-validation"
+                                  action="/admin/update_3"></form>
+                            <input type="hidden"
+                                   name="_method"
+                                   value="PATCH"/>
+                            <div class="modal-body">
+                                <div class="container center col-6 font-weight-bold text-center">
+
+                                    <div class="form-group">
+                                        <label for="id"
+                                               class="col-form-label">ID</label>
+                                        <input type="text" class="form-control" readonly
+                                               id="id" name="id" placeholder="ID"
+                                               value="3">
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="firstName" class="col-form-label">First
+                                            name</label>
+                                        <input type="text" class="form-control" required
+                                               id="name" name="name"
+                                               placeholder="First name" value="Admin">
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="lastName" class="col-form-label">Last
+                                            name</label>
+                                        <input type="text" class="form-control" required
+                                               id="lastname" name="lastname"
+                                               placeholder="Last name"
+                                               value="Admin_Last">
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="age"
+                                               class="col-form-label">Age</label>
+                                        <input type="number" class="form-control"
+                                               required
+                                               id="age" name="age" placeholder="Age"
+                                               value="111">
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="email"
+                                               class="col-form-label">Email</label>
+                                        <input type="text" class="form-control" required
+                                               id="email" name="email"
+                                               placeholder="Email" value="admin@admin">
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="password" class="col-form-label">Password</label>
+                                        <input type="password" class="form-control"
+                                               id="password" name="password"
+                                               placeholder="Password">
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="selectRoles">Role</label>
+                                        <select multiple size="2" name="rolNewUser"
+                                                class="form-control"
+                                                id="selectRoles">
+                                            <option aria-current="true" value="ADMIN">
+                                                ADMIN
+                                            </option>
+                                            <option aria-current="true" value="USER">
+                                                USER
+                                            </option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary"
+                                            data-dismiss="modal">Close
+                                    </button>
+                                    <button type="submit" class="btn btn-primary">Edit
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-        </div>
-        <div th:each="userAct : ${userList}">
-            <div th:attr="id='delete_' + ${userAct.getId()}" th:insert="~{pages/remover :: modal_remover}"
-                 class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-                 aria-hidden="true">Modal editor
-            </div>
-        </div>
+        </template>
     </table>
 </div>
 </html>

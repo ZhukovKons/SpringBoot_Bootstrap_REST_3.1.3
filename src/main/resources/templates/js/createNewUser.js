@@ -1,5 +1,3 @@
-
-
 function getAllRoles() {
     let optionalSelectRole = document.querySelector('#selectRoles');
 
