@@ -7,12 +7,12 @@
     <div class="btn-group-vertical btn-group-justified" style="width: 100%">
         <button th:if="${user.serchRoleAdmin()}" id="buttonAdmin" type="button" data-toggle="button"
                 th:class="${#httpServletRequest.requestURI != '/user' ? 'btn btn-primary text-left' : 'btn btn-light text-left text-primary'}"
-                onclick="location.href = '/';">
+                onclick="location.href = '#';">
             Admin
         </button>
         <button id="buttonUser" type="button" data-toggle="button"
                 th:class="${#httpServletRequest.requestURI == '/user' ? 'btn btn-primary text-left' : 'btn btn-light text-left text-primary'}"
-                onclick="location.href = '/user';">
+                onclick="location.href = '#';">
             User
         </button>
     </div>

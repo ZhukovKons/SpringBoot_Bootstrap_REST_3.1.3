@@ -1,20 +1,8 @@
-function addUserTable() {
+async function addUserTable() {
     let tbody = document.createElement('tbody');
     tbody.id = "userContainer";
 
-    var myHeaders = new Headers();
-    myHeaders.append("Cookie", "JSESSIONID=921E9A2496A56129D3DE3B9B67335179");
-
-    var requestOptions = {
-        method: 'GET',
-        headers: myHeaders,
-        redirect: 'follow'
-    };
-
-    fetch("http://localhost:8080/all", requestOptions)
-        .then(response => response.json())
-        .then(result => Array.from(result).forEach(user => addUserForTable(user)))
-        .catch(error => alert('Error: ' + error));
+    getPromiseAllUsers().then(list => Array.from(list).forEach(user => addUserForTable(user)));
 
 
     function addUserForTable(user) {
@@ -33,32 +21,58 @@ function addUserTable() {
             user.id + '">Delete</button></td>';
 
         table.append(lineUserParam);
+        setAtrrModalWindow("edit");
+        setAtrrModalWindow("delete");
 
         //модальное окно
+        function setAtrrModalWindow(type) {
+            let modal = document.createElement('div');
+            modal.append(editModalTemp.content.cloneNode(true));
+            document.querySelector("#tableAllUsers").before(modal);
+            let strTypeAndId;
+            switch (type) {
+                case 'edit':
+                    strTypeAndId = 'edit_' + user.id;
+                    break;
+                case 'delete':
+                    strTypeAndId = 'delete_' + user.id;
+                    break;
+            }
+            modal.querySelector('#editId').setAttribute('id', strTypeAndId);
 
-        let modal = document.createElement('div');
-        modal.append(editModalTemp.content.cloneNode(true));
-        document.querySelector("#tableAllUsers").before(modal);
-        modal.querySelector('#editId').setAttribute('id', 'edit_' + user.id);
-        {
-            modal.querySelector('#edit_' + user.id).querySelectorAll(".form-control").forEach(fild => {
-                let atrId = fild.getAttribute("id");
-                if (atrId != "password") {
-                    fild.setAttribute('value', user[atrId]);
+            {
+                modal.querySelector('#' + strTypeAndId).querySelectorAll(".form-control").forEach(fild => {
+                    let atrId = fild.getAttribute("id");
+                    if (atrId != "password") {
+                        fild.setAttribute('value', user[atrId]);
+                    }
+                    if (type == "delete") {
+                        fild.setAttribute('readonly', "true");
+                    }
+                });
+                let button = modal.querySelector('#' + strTypeAndId).querySelector("#buttonEndOderDelete");
+                if (type == "delete") {
+                    modal.querySelector('#' + strTypeAndId).querySelector(".modal-title").innerHTML = 'Delete user';
+                    button.innerHTML = 'Delete';
+                    button.setAttribute('class', "btn btn-danger");
+                    modal.querySelector('#' + strTypeAndId).querySelector("#formSendDataModal").setAttribute('onsubmit', 'deleteUser(' + user.id + ')');
+                    getAllRoles(modal)
+                }else{
+                    modal.querySelector('#' + strTypeAndId).querySelector("#formSendDataModal").setAttribute('onsubmit', 'putUser(' + user.id + ')');
+                    getAllRoles(modal);
                 }
-            });
+            }
         }
-
-        //console.log("11111: " + inputFilds.length);
     }
 
     $('#bodyTableAllUsers').html(tbody);
-}
-
-function putUser(user){
 
 }
 
-function deleteUser(id){
+function putUser(user) {
+    alert('putUser: ' + user);
+}
 
+function deleteUser(id) {
+    alert('deleteUser: ' + id);
 }

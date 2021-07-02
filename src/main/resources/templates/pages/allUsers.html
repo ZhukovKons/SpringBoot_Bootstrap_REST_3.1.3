@@ -44,86 +44,76 @@
                                     <span aria-hidden="true">&times;</span>
                                 </button>
                             </div>
-                            <form method="post" class="col-4 needs-validation"
-                                  action="/admin/update_3"></form>
-                            <input type="hidden"
-                                   name="_method"
-                                   value="PATCH"/>
-                            <div class="modal-body">
-                                <div class="container center col-6 font-weight-bold text-center">
+                            <form id="formSendDataModal" class="needs-validation"
+                                  onsubmit="">
+                                <div class="modal-body">
+                                    <div class="container center col-6 font-weight-bold text-center">
 
-                                    <div class="form-group">
-                                        <label for="id"
-                                               class="col-form-label">ID</label>
-                                        <input type="text" class="form-control" readonly
-                                               id="id" name="id" placeholder="ID"
-                                               value="3">
+                                        <div class="form-group">
+                                            <label for="id"
+                                                   class="col-form-label">ID</label>
+                                            <input type="text" class="form-control" readonly
+                                                   id="id" name="id" placeholder="ID"
+                                                   value="3">
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="firstName" class="col-form-label">First
+                                                name</label>
+                                            <input type="text" class="form-control" required
+                                                   id="name" name="name"
+                                                   placeholder="First name" value="Admin">
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="lastName" class="col-form-label">Last
+                                                name</label>
+                                            <input type="text" class="form-control" required
+                                                   id="lastname" name="lastname"
+                                                   placeholder="Last name"
+                                                   value="Admin_Last">
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="age"
+                                                   class="col-form-label">Age</label>
+                                            <input type="number" class="form-control"
+                                                   required
+                                                   id="age" name="age" placeholder="Age"
+                                                   value="111">
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="email"
+                                                   class="col-form-label">Email</label>
+                                            <input type="text" class="form-control" required
+                                                   id="email" name="email"
+                                                   placeholder="Email" value="admin@admin">
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="password" class="col-form-label">Password</label>
+                                            <input type="password" class="form-control"
+                                                   id="password" name="password"
+                                                   placeholder="Password">
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="selectRoles">Role</label>
+                                            <select multiple="" size="0" name="rolNewUser" class="form-control" id="selectRoles" required="">
+                                            </select>
+                                        </div>
                                     </div>
 
-                                    <div class="form-group">
-                                        <label for="firstName" class="col-form-label">First
-                                            name</label>
-                                        <input type="text" class="form-control" required
-                                               id="name" name="name"
-                                               placeholder="First name" value="Admin">
-                                    </div>
-
-                                    <div class="form-group">
-                                        <label for="lastName" class="col-form-label">Last
-                                            name</label>
-                                        <input type="text" class="form-control" required
-                                               id="lastname" name="lastname"
-                                               placeholder="Last name"
-                                               value="Admin_Last">
-                                    </div>
-
-                                    <div class="form-group">
-                                        <label for="age"
-                                               class="col-form-label">Age</label>
-                                        <input type="number" class="form-control"
-                                               required
-                                               id="age" name="age" placeholder="Age"
-                                               value="111">
-                                    </div>
-
-                                    <div class="form-group">
-                                        <label for="email"
-                                               class="col-form-label">Email</label>
-                                        <input type="text" class="form-control" required
-                                               id="email" name="email"
-                                               placeholder="Email" value="admin@admin">
-                                    </div>
-
-                                    <div class="form-group">
-                                        <label for="password" class="col-form-label">Password</label>
-                                        <input type="password" class="form-control"
-                                               id="password" name="password"
-                                               placeholder="Password">
-                                    </div>
-
-                                    <div class="form-group">
-                                        <label for="selectRoles">Role</label>
-                                        <select multiple size="2" name="rolNewUser"
-                                                class="form-control"
-                                                id="selectRoles">
-                                            <option aria-current="true" value="ADMIN">
-                                                ADMIN
-                                            </option>
-                                            <option aria-current="true" value="USER">
-                                                USER
-                                            </option>
-                                        </select>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary"
+                                                data-dismiss="modal">Close
+                                        </button>
+                                        <button id="buttonEndOderDelete" type="submit" class="btn btn-primary">Edit
+                                        </button>
                                     </div>
                                 </div>
-
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary"
-                                            data-dismiss="modal">Close
-                                    </button>
-                                    <button type="submit" class="btn btn-primary">Edit
-                                    </button>
-                                </div>
-                            </div>
+                            </form>
                         </div>
                     </div>
                 </div>
