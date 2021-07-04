@@ -9,8 +9,6 @@ import ru.pre.project.JM.entity.RoleType;
 import ru.pre.project.JM.entity.User;
 import ru.pre.project.JM.repositorys.UserRepository;
 import ru.pre.project.JM.service.UserService;
-
-
 import java.util.Collections;
 
 

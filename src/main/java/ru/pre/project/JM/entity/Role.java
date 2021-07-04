@@ -1,7 +1,6 @@
 package ru.pre.project.JM.entity;
 
 import org.springframework.security.core.GrantedAuthority;
-
 import javax.persistence.*;
 import java.util.Set;
 

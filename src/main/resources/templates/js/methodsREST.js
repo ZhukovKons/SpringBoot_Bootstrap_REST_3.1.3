@@ -10,9 +10,6 @@ async function sendUser(raw, method) {
     };
 
     return fetch("http://localhost:8080/add", requestOptions);
-        // .then(response => response.text())
-        // .then(result => console.log(result))
-        // .catch(error => console.log('error" ', error));
 }
 
 async function getPromiseUser(id = "all") {
@@ -50,7 +47,6 @@ async function getPromiseAllRoles() {
 async function deleteUser(id) {
     var myHeaders = new Headers();
     myHeaders.append("id", id);
-   // myHeaders.append("Cookie", "JSESSIONID=452CE5F007F2EB86F021C67DF01D5AC4");
 
     var requestOptions = {
         method: 'DELETE',

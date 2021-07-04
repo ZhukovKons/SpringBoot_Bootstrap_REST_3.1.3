@@ -53,7 +53,7 @@ async function openModal(id, type) {
             }
         }
         user = null;
-        if (type == "Delete") {
+        if (type === "Delete") {
             button.setAttribute("class", "btn btn-danger");
             modal.querySelector('#passFild').style.display = 'none';
             button.setAttribute('onclick', 'userDelete(' + id + ')');
@@ -65,28 +65,26 @@ async function openModal(id, type) {
     }
 }
 
-function userDelete(id) {
+function userDelete(id) {               //59 строка этого .js
     deleteUser(id).then(() => addUserTable());
 }
 
-function userEdit() {
+function userEdit() {                   //63 строка этого .js
     let user = getJsonUser('modalWindows');
-    if(user == null){
-        return null;
+    if(user){
+        sendUser(user, 'PUT').then(() => addUserTable());
     }
-    sendUser(user, 'PUT').then(() => addUserTable());
-
 }
 
 function getJsonUser(serchInputFildIdContainer) {
     let newUserAdd = document.querySelector("#" + serchInputFildIdContainer).querySelectorAll('.form-control');
 
-    if (newUserAdd[4].value.indexOf('@') == -1 || newUserAdd[4].value.length < 3) {
+    if (newUserAdd[4].value.indexOf('@') === -1 || newUserAdd[4].value.length < 3) {
         showError('errorEmail', 'Email должен содержать @ и не может быть меньше трёх элементов');
-        return null;
+        return false;
     }
 
-    let user = {
+    return {
         "id": parseInt(newUserAdd[0].value),
         "name": newUserAdd[1].value,
         "lastname": newUserAdd[2].value,
@@ -95,7 +93,6 @@ function getJsonUser(serchInputFildIdContainer) {
         "password": newUserAdd[5].value,
         "roles": Array.from(newUserAdd[6]).filter(o => o.selected).map(el => el.value)
     };
-    return user;
 }
 
 function showError(fildId, text) {
@@ -107,7 +104,7 @@ function showError(fildId, text) {
     }, 3000);
 }
 
-function selectorAdminPanel(getPage) {
+function selectorAdminPanel() {
     let navPanel = document.querySelector('#navigationPanelForAdmin');
     let butUserTab = [navPanel.querySelector('#nav-home-tab'), navPanel.querySelector('#table')];
     let butNewUser = [navPanel.querySelector('#nav-profile-new'), navPanel.querySelector('#new')];

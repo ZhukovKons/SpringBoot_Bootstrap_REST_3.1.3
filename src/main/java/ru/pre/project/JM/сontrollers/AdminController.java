@@ -5,8 +5,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import ru.pre.project.JM.entity.RoleType;
 import ru.pre.project.JM.model.UserModel;
 import ru.pre.project.JM.service.UserService;
+
+import java.util.List;
 import java.util.stream.Collectors;
 
 
@@ -40,7 +43,7 @@ public class AdminController {
     }
 
    @PutMapping(value = "/add")
-    public ResponseEntity update(@RequestBody UserModel updateUser, BindingResult bindingResult) {
+    public ResponseEntity update(@RequestBody UserModel updateUser) {
         try {
             return ResponseEntity.ok(userService.updateUser(updateUser));
         }catch (Exception e){
@@ -59,10 +62,7 @@ public class AdminController {
     }
 
    @PostMapping(value = "/add")
-    public ResponseEntity createUser(
-//            @ModelAttribute("userNew") @Valid UserModel userNew, todo
-            @RequestBody UserModel userNew,
-            BindingResult bindingResult) {
+    public ResponseEntity createUser(@RequestBody UserModel userNew) {
 
         try {
             userService.add(userNew);
@@ -70,7 +70,6 @@ public class AdminController {
         } catch (Exception uEx) {
             return ResponseEntity.badRequest().body("ERROR: Didn't create user " + userNew.getName());
         }
-//        if (bindingResult.hasErrors()) { todo
     }
 
 

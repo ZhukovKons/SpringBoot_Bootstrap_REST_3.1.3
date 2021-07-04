@@ -3,10 +3,6 @@ package ru.pre.project.JM.model;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import ru.pre.project.JM.entity.RoleType;
 import ru.pre.project.JM.entity.User;
-
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -15,16 +11,12 @@ public class UserModel{
 
     private Long id;
 
-//    @NotEmpty(message = "Имя не может быть пустым")
     private String name;
 
-//    @NotEmpty(message = "Фамилия не может быть пустой")
     private String lastname;
 
-//    @Email(message = "Не верный формат Email")
     private String email;
 
-//    @NotNull(message = "Возраст не может быть пустым")
     private Integer age;
 
     private String password;
