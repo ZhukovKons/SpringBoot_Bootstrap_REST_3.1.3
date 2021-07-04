@@ -61,7 +61,7 @@ public class UserServiceImp implements UserService {
         User oldUser = userRepository.findById(model.getId()).get();
         User user = model.getUser(oldUser);
         List<Role> listRole = getAllRole();
-        if (model.getRoles() == null) {
+        if (model.getRoles() == null || model.getRoles().size() == 0) {
             user.setRoles(oldUser.getRoles());
         } else {
             user.setRoles(listRole

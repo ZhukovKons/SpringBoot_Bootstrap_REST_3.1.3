@@ -1,4 +1,4 @@
-function sendUser(raw, method) {
+async function sendUser(raw, method) {
     var myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
 
@@ -9,10 +9,10 @@ function sendUser(raw, method) {
         redirect: 'follow'
     };
 
-    fetch("http://localhost:8080/new", requestOptions)
-        .then(response => response.text())
-        .then(result => console.log(result))
-        .catch(error => console.log('error', error));
+    return fetch("http://localhost:8080/add", requestOptions);
+        // .then(response => response.text())
+        // .then(result => console.log(result))
+        // .catch(error => console.log('error" ', error));
 }
 
 async function getPromiseUser(id = "all") {
@@ -47,7 +47,7 @@ async function getPromiseAllRoles() {
         .catch(error => console.log('error', error));
 }
 
-function deleteUser(id) {
+async function deleteUser(id) {
     var myHeaders = new Headers();
     myHeaders.append("id", id);
    // myHeaders.append("Cookie", "JSESSIONID=452CE5F007F2EB86F021C67DF01D5AC4");
@@ -58,7 +58,7 @@ function deleteUser(id) {
         redirect: 'follow'
     };
 
-    fetch("http://localhost:8080/delete", requestOptions)
+    return fetch("http://localhost:8080/delete", requestOptions)
         .then(response => response.text())
         .then(result => console.log(result))
         .catch(error => console.log('error', error));

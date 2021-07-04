@@ -1,14 +1,14 @@
-function addNewUser(serchInputFildIdContainer){
-
-    let newUserAdd = document.querySelector("#" + serchInputFildIdContainer).querySelectorAll('.form-control');
-
-    let user = {
-        "name": newUserAdd[0].value,
-        "lastname": newUserAdd[1].value,
-        "email": newUserAdd[3].value,
-        "age": parseInt(newUserAdd[2].value),
-        "password": newUserAdd[4].value,
-        "roles": Array.from(newUserAdd[5]).filter(o => o.selected).map(el => el.value)
-    };
-    sendUser(user, 'POST');
+function addNewUser(serchInputFildIdContainer) {
+    let user = getJsonUser(serchInputFildIdContainer);
+    for (let userKey in user) {
+        let fildVal = user[userKey];
+        if (userKey != "id") {
+            if (fildVal == '' || Number.isNaN(fildVal)) {
+                showError('errorNewForm', 'Нужно заполнить все поля!');
+                return;
+            }
+        }
+    }
+    sendUser(user, 'POST')
+        .then(res => res.ok ? selectorAdminPanel() : showError('errorNewForm', 'Такой email зарегистирован'));
 }

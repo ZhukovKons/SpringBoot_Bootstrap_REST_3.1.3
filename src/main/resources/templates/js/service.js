@@ -1,8 +1,3 @@
-let butAdmin = document.querySelector('#buttonAdmin');
-let butUser = document.querySelector('#buttonUser');
-let buttonTablAllUsers = document.querySelector('#nav-home-tab'); //#table
-let buttonNewAllUsers = document.getElementById('nav-profile-tab'); //#new
-
 document.onclick = event => {
     switch (event.target.id) {
         case 'buttonAdmin':
@@ -11,17 +6,12 @@ document.onclick = event => {
         case 'buttonUser':
             // alert('buttonUser');
             break;
-        case 'nav-home-tab':
-            addUserTable();
-            break;
-        case 'nav-profile-tab':
-            // alert('nav-profile-tab');
-            break;
-        case 'nav-profile-tab newUserOpenPage':
+        case 'nav-profile-new':
             insertSelectorRoles(document.querySelector('#newUserAddDivAllFilds'));
             break;
     }
 }
+
 
 async function insertSelectorRoles(objInput) {
     getPromiseAllRoles().then(result => addRolesSelector(result));
@@ -43,14 +33,13 @@ async function insertSelectorRoles(objInput) {
 
 function openModal(id, type) {
     let modal = document.querySelector("#modalWindows");
-    let form = modal.querySelector('#formSendDataModal');
+
     insertSelectorRoles(modal);
 
     getPromiseUser(id).then(user => {
         let button = modal.querySelector('#buttonEndOderDelete');
         modal.querySelector('.modal-title').innerHTML = type + ' user';
         button.innerHTML = type;
-        form.setAttribute('onsubmit', 'user' + type + '(' + id + ')');
         for (let userKey in user) {
             let el = modal.querySelector('#' + userKey);
 
@@ -58,22 +47,69 @@ function openModal(id, type) {
                 el.setAttribute("value", user[userKey]);
             }
         }
-        if (type == "Delete") {  //todo
+        if (type == "Delete") {
             button.setAttribute("class", "btn btn-danger");
             modal.querySelector('#passFild').style.display = 'none';
+            button.setAttribute('onclick', 'userDelete(' + id + ')');
         } else {
             button.setAttribute("class", "btn btn-primary");
             modal.querySelector('#passFild').style.display = 'inline';
+            button.setAttribute('onclick', 'userEdit( )');
         }
     });
-
-
-
 }
+
 function userDelete(id) {
-    deleteUser(id);
+    deleteUser(id).then(() => addUserTable());
 }
 
 function userEdit() {
-    alert(111);
+    sendUser(getJsonUser('modalWindows'), 'PUT').then(() => addUserTable());
 }
+
+function getJsonUser(serchInputFildIdContainer) {
+    let newUserAdd = document.querySelector("#" + serchInputFildIdContainer).querySelectorAll('.form-control');
+
+    if (newUserAdd[4].value.indexOf('@') == -1 || newUserAdd[4].value.length < 3){
+        showError('errorEmail', 'Email должен содержать @ и не может быть меньше трёх элементов');
+        return null;
+    }
+
+    let user = {
+        "id": parseInt(newUserAdd[0].value),
+        "name": newUserAdd[1].value,
+        "lastname": newUserAdd[2].value,
+        "email": newUserAdd[4].value,
+        "age": parseInt(newUserAdd[3].value),
+        "password": newUserAdd[5].value,
+        "roles": Array.from(newUserAdd[6]).filter(o => o.selected).map(el => el.value)
+    };
+    return user;
+}
+
+function showError(fildId, text){
+    let fild = document.querySelector('#' + fildId);
+    fild.removeAttribute('hidden');
+    fild.innerHTML = text;
+    setTimeout(() => {fild.setAttribute('hidden', 'true')}, 3000);
+}
+
+function selectorAdminPanel(getPage){
+    let navPanel = document.querySelector('#navigationPanelForAdmin');
+    let butUserTab = [navPanel.querySelector('#nav-home-tab'), navPanel.querySelector('#table')];
+    let butNewUser = [navPanel.querySelector('#nav-profile-new'), navPanel.querySelector('#new')];
+
+    butUserTab[0].setAttribute('class', 'nav-item nav-link active');
+    butUserTab[0].setAttribute('aria-selected', 'true');
+    butUserTab[1].setAttribute('class', 'tab-pane fade active show');
+
+    butNewUser[0].setAttribute('class', 'nav-item nav-link');
+    butNewUser[0].setAttribute('aria-selected', 'false');
+    butNewUser[1].setAttribute('class', 'tab-pane fade');
+
+    addUserTable();
+
+   document.querySelector("#newUserAddDivAllFilds").querySelectorAll('.form-control').forEach(x => x.value = '');
+
+}
+

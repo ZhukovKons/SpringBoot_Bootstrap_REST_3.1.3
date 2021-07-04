@@ -7,10 +7,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import ru.pre.project.JM.model.UserModel;
 import ru.pre.project.JM.service.UserService;
-
-
-import javax.validation.Valid;
-import java.util.List;
 import java.util.stream.Collectors;
 
 
@@ -43,12 +39,12 @@ public class AdminController {
         return ResponseEntity.ok(userService.getAllRole().stream().map(role -> role.getRole()).collect(Collectors.toList()));
     }
 
-   @PutMapping(value = "/update")
+   @PutMapping(value = "/add")
     public ResponseEntity update(@RequestBody UserModel updateUser, BindingResult bindingResult) {
         try {
             return ResponseEntity.ok(userService.updateUser(updateUser));
         }catch (Exception e){
-         return ResponseEntity.badRequest().body("Error update user "+ updateUser.getName());
+         return ResponseEntity.badRequest().body("ERROR update user "+ updateUser.getName());
         }
     }
 
@@ -62,7 +58,7 @@ public class AdminController {
         }
     }
 
-    @RequestMapping(value = "/new", method = RequestMethod.POST)
+   @PostMapping(value = "/add")
     public ResponseEntity createUser(
 //            @ModelAttribute("userNew") @Valid UserModel userNew, todo
             @RequestBody UserModel userNew,
@@ -72,7 +68,7 @@ public class AdminController {
             userService.add(userNew);
             return ResponseEntity.ok("User " + userNew.getName() + " created");
         } catch (Exception uEx) {
-            return ResponseEntity.badRequest().body("ERROR: User created: " + uEx.getMessage());
+            return ResponseEntity.badRequest().body("ERROR: Didn't create user " + userNew.getName());
         }
 //        if (bindingResult.hasErrors()) { todo
     }
