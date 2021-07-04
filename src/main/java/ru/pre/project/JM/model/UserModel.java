@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @JsonIgnoreProperties(value = "user")
-public class UserModel {
+public class UserModel{
 
     private Long id;
 
@@ -46,14 +46,13 @@ public class UserModel {
         return model;
     }
 
-    public User getUser() {
-        User user = new User();
+    public User getUser(User user) {
         user.setId(this.id);
-        user.setName(this.name);
-        user.setLastname(this.lastname);
-        user.setEmail(this.email);
-        user.setAge(this.age);
-        user.setPassword(this.password);
+        user.setName(this.name == null || this.name.length() == 0 ? user.getName() : this.name);
+        user.setLastname(this.lastname == null || this.lastname.length() == 0 ? user.getLastname() : this.lastname);
+        user.setEmail(this.email == null || this.email.length() == 0 ? user.getEmail() : this.email);
+        user.setAge(this.age == null || this.age == 0 ? user.getAge() : this.age);
+        user.setPassword(this.password == null || this.password.length() == 0 ? user.getPassword() : this.password);
         return user;
     }
 

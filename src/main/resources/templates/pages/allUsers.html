@@ -15,7 +15,7 @@
         </tr>
         </thead>
         <tbody id="bodyTableAllUsers">
-        <tr>
+        <tr> <!--todo переделать на template-->
             <td scope="row">ID</td>
             <td>name</td>
             <td>lastName</td>
@@ -30,95 +30,95 @@
             </td>
         </tr>
         </tbody>
-        <template id="editModalTemp">
-            <div class="modal fade" id="editId" tabindex="-1" role="dialog"
-                 aria-labelledby="exampleModalLabel"
-                 aria-hidden="true">
-                <div>
-                    <div class="modal-dialog" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title">Edit user</h5>
-                                <button type="button" class="close" data-dismiss="modal"
-                                        aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                            <form id="formSendDataModal" class="needs-validation"
-                                  onsubmit="">
-                                <div class="modal-body">
-                                    <div class="container center col-6 font-weight-bold text-center">
+        <div class="modal fade" id="modalWindows" tabindex="-1" role="dialog"
+             aria-labelledby="exampleModalLabel"
+             aria-hidden="true">
+            <div>
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Title modal windows</h5>
+                            <button type="button" class="close" data-dismiss="modal"
+                                    aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
 
-                                        <div class="form-group">
-                                            <label for="id"
-                                                   class="col-form-label">ID</label>
-                                            <input type="text" class="form-control" readonly
-                                                   id="id" name="id" placeholder="ID"
-                                                   value="3">
-                                        </div>
+                        <div class="modal-body">
+                            <div class="container center col-6 font-weight-bold text-center">
 
-                                        <div class="form-group">
-                                            <label for="firstName" class="col-form-label">First
-                                                name</label>
-                                            <input type="text" class="form-control" required
-                                                   id="name" name="name"
-                                                   placeholder="First name" value="Admin">
-                                        </div>
-
-                                        <div class="form-group">
-                                            <label for="lastName" class="col-form-label">Last
-                                                name</label>
-                                            <input type="text" class="form-control" required
-                                                   id="lastname" name="lastname"
-                                                   placeholder="Last name"
-                                                   value="Admin_Last">
-                                        </div>
-
-                                        <div class="form-group">
-                                            <label for="age"
-                                                   class="col-form-label">Age</label>
-                                            <input type="number" class="form-control"
-                                                   required
-                                                   id="age" name="age" placeholder="Age"
-                                                   value="111">
-                                        </div>
-
-                                        <div class="form-group">
-                                            <label for="email"
-                                                   class="col-form-label">Email</label>
-                                            <input type="text" class="form-control" required
-                                                   id="email" name="email"
-                                                   placeholder="Email" value="admin@admin">
-                                        </div>
-
-                                        <div class="form-group">
-                                            <label for="password" class="col-form-label">Password</label>
-                                            <input type="password" class="form-control"
-                                                   id="password" name="password"
-                                                   placeholder="Password">
-                                        </div>
-
-                                        <div class="form-group">
-                                            <label for="selectRoles">Role</label>
-                                            <select multiple="" size="0" name="rolNewUser" class="form-control" id="selectRoles" required="">
-                                            </select>
-                                        </div>
-                                    </div>
-
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary"
-                                                data-dismiss="modal">Close
-                                        </button>
-                                        <button id="buttonEndOderDelete" type="submit" class="btn btn-primary">Edit
-                                        </button>
-                                    </div>
+                                <div class="form-group">
+                                    <label for="id"
+                                           class="col-form-label">ID</label>
+                                    <input type="text" class="form-control" readonly
+                                           id="id" name="id" placeholder="ID"
+                                           value="id user" >
                                 </div>
-                            </form>
+
+                                <div class="form-group">
+                                    <label for="firstName" class="col-form-label">First
+                                        name</label>
+                                    <input type="text" class="form-control" required
+                                           id="name" name="name"
+                                           placeholder="First name user" value="First name">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="lastname" class="col-form-label">Last
+                                        name</label>
+                                    <input type="text" class="form-control" required
+                                           id="lastname" name="lastname"
+                                           placeholder="Last name"
+                                           value="Last name user">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="age"
+                                           class="col-form-label">Age</label>
+                                    <input type="number" class="form-control"
+                                           required
+                                           id="age" name="age" placeholder="Age"
+                                           value="Age user">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="email"
+                                           class="col-form-label">Email</label>
+                                    <input type="text" class="form-control" required
+                                           id="email" name="email"
+                                           placeholder="Email" value="Email user">
+                                </div>
+
+                                <div class="form-group" id="passFild">
+                                    <label for="password" class="col-form-label">Password</label>
+                                    <input type="password" class="form-control"
+                                           id="password" name="password"
+                                           placeholder="Password" viewFalse>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="roles">Role</label>
+                                    <select multiple="" size="0" name="rolNewUser" class="form-control"
+                                            id="roles" viewFalse> <!-- required="" todo-->
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary"
+                                        data-dismiss="modal">Close
+                                </button>
+                                <form id="formSendDataModal"
+                                      onsubmit="">
+                                    <button id="buttonEndOderDelete" type="submit" class="btn btn-primary">Button
+                                    </button>
+                                </form>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </template>
+        </div>
     </table>
 </div>
 </html>

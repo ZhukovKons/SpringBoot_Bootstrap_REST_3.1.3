@@ -15,22 +15,24 @@ function sendUser(raw, method) {
         .catch(error => console.log('error', error));
 }
 
-async function getPromiseAllUsers() {
+async function getPromiseUser(id = "all") {
     let myHeaders = new Headers();
-    myHeaders.append("Cookie", "JSESSIONID=921E9A2496A56129D3DE3B9B67335179");
+    myHeaders.append("type", id);
+    myHeaders.append("Cookie", "JSESSIONID=5161E7E86C4A5FF9F7B625D63EA0B563");
 
     let requestOptions = {
         method: 'GET',
         headers: myHeaders,
         redirect: 'follow'
     };
-    return fetch("http://localhost:8080/all", requestOptions)
+
+    return fetch("http://localhost:8080/json", requestOptions)
         .then(response => response.json())
-        .catch(error => alert('Error: ' + error));
+        .catch(error => console.log('error', error));
 
 }
 
-async function getPromiseAllRoles(){
+async function getPromiseAllRoles() {
     let myHeaders = new Headers();
     myHeaders.append("Cookie", "JSESSIONID=DFE762A422823953B4ED8ECA9B469328");
 
@@ -44,3 +46,21 @@ async function getPromiseAllRoles(){
         .then(response => response.json())
         .catch(error => console.log('error', error));
 }
+
+function deleteUser(id) {
+    var myHeaders = new Headers();
+    myHeaders.append("id", id);
+   // myHeaders.append("Cookie", "JSESSIONID=452CE5F007F2EB86F021C67DF01D5AC4");
+
+    var requestOptions = {
+        method: 'DELETE',
+        headers: myHeaders,
+        redirect: 'follow'
+    };
+
+    fetch("http://localhost:8080/delete", requestOptions)
+        .then(response => response.text())
+        .then(result => console.log(result))
+        .catch(error => console.log('error', error));
+}
+

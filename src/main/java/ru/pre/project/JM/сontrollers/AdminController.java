@@ -26,9 +26,16 @@ public class AdminController {
         this.userService = userService;
     }
 
-    @GetMapping(value = "/all")
-    public ResponseEntity getAllUsers() {
-        return ResponseEntity.ok(userService.getAll());
+    @GetMapping(value = "/json")
+    public ResponseEntity getAllUsers(@RequestHeader ("type") String type) {
+        try {
+            if(type.equals("all")){
+                return ResponseEntity.ok(userService.getAll());
+            }
+            return ResponseEntity.ok(userService.getUser(Long.parseLong(type)));
+        }catch (Exception e){
+            return ResponseEntity.badRequest().body("ERROR: Не удалось получить пользователя/ей ::: " + e.getMessage());
+        }
     }
 
     @GetMapping(value = "/roles")
@@ -45,8 +52,8 @@ public class AdminController {
         }
     }
 
-    @DeleteMapping(value = "/delete_{id}")
-    public ResponseEntity delete(@PathVariable("id") long id) {
+    @DeleteMapping(value = "/delete")
+    public ResponseEntity delete(@RequestHeader ("id") long id) {
         try {
             userService.remove(id);
             return ResponseEntity.ok("User id=" + id + " deleted");

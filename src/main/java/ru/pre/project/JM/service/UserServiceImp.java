@@ -12,8 +12,10 @@ import ru.pre.project.JM.model.UserModel;
 import ru.pre.project.JM.repositorys.RoleRepository;
 import ru.pre.project.JM.repositorys.UserRepository;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Service
 @Transactional
@@ -47,7 +49,7 @@ public class UserServiceImp implements UserService {
 
     @Override
     public void add(UserModel model) {
-        User user = model.getUser();
+        User user = model.getUser(new User());
         user.setRoles(getAllRole().stream()
                 .filter(x -> model.getRoles().contains(x.getRole().name()))
                 .collect(Collectors.toSet()));
@@ -56,12 +58,9 @@ public class UserServiceImp implements UserService {
 
     @Override
     public UserModel updateUser(UserModel model) {
-        User user = model.getUser();
-        User oldUser = userRepository.findById(user.getId()).get();
+        User oldUser = userRepository.findById(model.getId()).get();
+        User user = model.getUser(oldUser);
         List<Role> listRole = getAllRole();
-        if (user.getPassword().length() == 0) {
-            user.setPassword(oldUser.getPassword());
-        }
         if (model.getRoles() == null) {
             user.setRoles(oldUser.getRoles());
         } else {
