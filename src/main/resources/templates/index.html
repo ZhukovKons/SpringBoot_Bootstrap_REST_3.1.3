@@ -12,35 +12,29 @@
 <div class="container-fluid">
     <div class="row mt-3">
         <div class="col-2 p-0">
-<!--            <div th:replace="~{blocks/type_selection :: button}" id="butPanel"/>-->
-<!--            <div class="btn-group-vertical btn-group-justified" style="width: 100%">-->
-<!--                <button id="buttonAdmin" type="button" data-toggle="button"-->
-<!--                        class="btn btn-primary text-left"-->
-<!--                        onclick="location.href = '#';">-->
-<!--                    Admin-->
-<!--                </button>-->
-<!--                <button id="buttonUser" type="button" data-toggle="button"-->
-<!--                        class="btn btn-light text-left text-primary"-->
-<!--                        onclick="location.href = '#';">-->
-<!--                    User-->
-<!--                </button>-->
-<!--            </div>-->
+            <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                <a class="nav-link active" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab"
+                   aria-controls="v-pills-home" aria-selected="true">Admin</a>
+                <a class="nav-link" id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-profile" role="tab"
+                   aria-controls="v-pills-profile" aria-selected="false">User</a>
+            </div>
         </div>
         <div class="col ml-4">
-            <div th:switch="${#httpServletRequest.requestURI}">
-                <div class="container" th:case="'/'">
+            <div class="tab-content" id="v-pills-tabContent">
+                <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel"
+                     aria-labelledby="v-pills-home-tab">
                     <div class="row h1">Admin panel</div>
-                    <div class="row-12" th:insert="~{pages/admin_panel :: adminPage}"/>
+                    <div class="row-12" th:insert="~{pages/admin_panel :: adminPage}"></div>
                 </div>
-                <div class="container" th:case="'/user'">
+                <div class="tab-pane fade" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab">
                     <div class="row h1">User information-page</div>
-                    <div class="row-12" th:insert="~{pages/user :: userPage}"/>
+                    <div class="row-12" th:insert="~{pages/user :: userPage}"></div>
                 </div>
             </div>
         </div>
     </div>
 </div>
-
+</div>
 <div th:insert="blocks/srccdn :: cdn"></div>
 </body>
 </html>

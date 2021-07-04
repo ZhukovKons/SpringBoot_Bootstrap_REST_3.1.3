@@ -44,9 +44,12 @@ async function openModal(id, type) {
         button.innerHTML = type;
         for (let userKey in user) {
             let el = modal.querySelector('#' + userKey);
-            if (el != null && !el.hasAttribute("viewFalse")) {
+            if (el != null) {
                 el.value = user[userKey];
                 console.log(el.getAttribute('value'))
+            }
+            if(el.hasAttribute("viewFalse")){
+                el.value = '';
             }
         }
         user = null;
