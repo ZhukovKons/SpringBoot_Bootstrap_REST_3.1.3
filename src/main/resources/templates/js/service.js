@@ -45,6 +45,7 @@ function openModal(id, type) {
 
             if (el != null && !el.hasAttribute("viewFalse")) {
                 el.setAttribute("value", user[userKey]);
+                console.log(el.getAttribute('value'))
             }
         }
         if (type == "Delete") {
@@ -64,7 +65,12 @@ function userDelete(id) {
 }
 
 function userEdit() {
-    sendUser(getJsonUser('modalWindows'), 'PUT').then(() => addUserTable());
+    let user = getJsonUser('modalWindows');
+    if(user == null){
+        return null;
+    }
+    sendUser(user, 'PUT').then(() => addUserTable());
+
 }
 
 function getJsonUser(serchInputFildIdContainer) {
