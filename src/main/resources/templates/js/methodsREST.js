@@ -27,7 +27,7 @@ async function getPromiseUser(id = "all") {
     };
 
     return fetch("http://localhost:8080/json", requestOptions)
-        .then(response => response.json())
+        .then(response => response.ok ? response.json() : alert("ERROR download user"))
         .catch(error => console.log('error', error));
 
 }

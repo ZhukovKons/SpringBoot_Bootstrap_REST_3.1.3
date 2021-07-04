@@ -31,23 +31,25 @@ async function insertSelectorRoles(objInput) {
     }
 }
 
-function openModal(id, type) {
+async function openModal(id, type) {
     let modal = document.querySelector("#modalWindows");
 
     insertSelectorRoles(modal);
 
-    getPromiseUser(id).then(user => {
+    getPromiseUser(id).then(user => setUserFilds(user));
+
+    function setUserFilds(user) {
         let button = modal.querySelector('#buttonEndOderDelete');
         modal.querySelector('.modal-title').innerHTML = type + ' user';
         button.innerHTML = type;
         for (let userKey in user) {
             let el = modal.querySelector('#' + userKey);
-
             if (el != null && !el.hasAttribute("viewFalse")) {
-                el.setAttribute("value", user[userKey]);
+                el.value = user[userKey];
                 console.log(el.getAttribute('value'))
             }
         }
+        user = null;
         if (type == "Delete") {
             button.setAttribute("class", "btn btn-danger");
             modal.querySelector('#passFild').style.display = 'none';
@@ -57,7 +59,7 @@ function openModal(id, type) {
             modal.querySelector('#passFild').style.display = 'inline';
             button.setAttribute('onclick', 'userEdit( )');
         }
-    });
+    }
 }
 
 function userDelete(id) {
@@ -76,7 +78,7 @@ function userEdit() {
 function getJsonUser(serchInputFildIdContainer) {
     let newUserAdd = document.querySelector("#" + serchInputFildIdContainer).querySelectorAll('.form-control');
 
-    if (newUserAdd[4].value.indexOf('@') == -1 || newUserAdd[4].value.length < 3){
+    if (newUserAdd[4].value.indexOf('@') == -1 || newUserAdd[4].value.length < 3) {
         showError('errorEmail', 'Email должен содержать @ и не может быть меньше трёх элементов');
         return null;
     }
@@ -93,14 +95,16 @@ function getJsonUser(serchInputFildIdContainer) {
     return user;
 }
 
-function showError(fildId, text){
+function showError(fildId, text) {
     let fild = document.querySelector('#' + fildId);
     fild.removeAttribute('hidden');
     fild.innerHTML = text;
-    setTimeout(() => {fild.setAttribute('hidden', 'true')}, 3000);
+    setTimeout(() => {
+        fild.setAttribute('hidden', 'true')
+    }, 3000);
 }
 
-function selectorAdminPanel(getPage){
+function selectorAdminPanel(getPage) {
     let navPanel = document.querySelector('#navigationPanelForAdmin');
     let butUserTab = [navPanel.querySelector('#nav-home-tab'), navPanel.querySelector('#table')];
     let butNewUser = [navPanel.querySelector('#nav-profile-new'), navPanel.querySelector('#new')];
@@ -115,7 +119,7 @@ function selectorAdminPanel(getPage){
 
     addUserTable();
 
-   document.querySelector("#newUserAddDivAllFilds").querySelectorAll('.form-control').forEach(x => x.value = '');
+    document.querySelector("#newUserAddDivAllFilds").querySelectorAll('.form-control').forEach(x => x.value = '');
 
 }
 
