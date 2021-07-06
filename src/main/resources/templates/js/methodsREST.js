@@ -9,7 +9,7 @@ async function sendUser(raw, method) {
         redirect: 'follow'
     };
 
-    return fetch("http://localhost:8080/add", requestOptions);
+    return fetch("http://localhost:8080/api/add", requestOptions);
 }
 
 async function getPromiseUser(id = "all") {
@@ -23,7 +23,7 @@ async function getPromiseUser(id = "all") {
         redirect: 'follow'
     };
 
-    return fetch("http://localhost:8080/json", requestOptions)
+    return fetch("http://localhost:8080/api/json", requestOptions)
         .then(response => response.ok ? response.json() : alert("ERROR download user"))
         .catch(error => console.log('error', error));
 
@@ -39,7 +39,7 @@ async function getPromiseAllRoles() {
         redirect: 'follow'
     };
 
-    return fetch("http://localhost:8080/roles", requestOptions)
+    return fetch("http://localhost:8080/api/roles", requestOptions)
         .then(response => response.json())
         .catch(error => console.log('error', error));
 }
@@ -54,7 +54,7 @@ async function deleteUser(id) {
         redirect: 'follow'
     };
 
-    return fetch("http://localhost:8080/delete", requestOptions)
+    return fetch("http://localhost:8080/api/delete", requestOptions)
         .then(response => response.text())
         .then(result => console.log(result))
         .catch(error => console.log('error', error));
